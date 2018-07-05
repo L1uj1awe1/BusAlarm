@@ -15,8 +15,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
 
-//        versionCode "git rev-list --count --all".execute().text.trim().toInteger() + 100
-        versionCode 1
+        versionCode "git rev-list --count --all".execute().text.trim().toInteger() + 100
         versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
