@@ -19,6 +19,40 @@ android {
         versionName "1.0.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    flavorDimensions "stage"
+    productFlavors {
+        main {
+            applicationId "com.readboyi.busalarm"
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "BusAlarm"
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            resValue "string", "app_name", "BusAlarm.debug"
+        }
+
+    }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.name == 'release') {
+                outputFileName = "BusAlarm_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+            } else {
+                outputFileName = "BusAlarm_debug_${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+            }
+        }
     }
 
     buildTypes {

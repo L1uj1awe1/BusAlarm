@@ -32,7 +32,6 @@ class RetrofitManager {
             header("AppType", "Android")
             header("Content-Type", "application/json")
             header("Accept", "application/json")
-            header("Authorization", BusApp.token)
             header("randKey", "${System.currentTimeMillis()}")
             header("Device", Build.MODEL)
             header("Version-Name", BuildConfig.VERSION_NAME)

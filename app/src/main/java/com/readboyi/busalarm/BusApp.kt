@@ -11,7 +11,6 @@ class BusApp : Application() {
 
     companion object {
         lateinit var INSTANCE: BusApp
-        var token: String = ""
     }
 
     override fun onCreate() {
