@@ -5,23 +5,24 @@ import com.readboyi.busalarm.data.BusDirectBean
 import io.reactivex.Observable
 import retrofit2.http.*
 
-interface LiveService {
+interface BusService {
 
-//    /**
-//     * 发红包
-//     */
-//    @POST("v2/webapi/lesson/redpacket/publish")
-//    fun publishRedPacket(
-//            @Query("lesson_id") lesson_id: String,
-//            @Query("type") type: String,
-//            @Query("total_score") total_score: Int,
-//            @Query("each_score") each_score: Int,
-//            @Query("count") count: Int
-//    ): Observable<BusDirectBean>
+    /**
+     * @aim 根据公交号码获取路线信息
+     * @param handlerName GetLineListByLineName
+     * @param key 公交号码，例如：8路
+     * @param _ 时间戳 System.currentTimeMillis()
+     */
+    @POST("Handlers/BusQuery.ashx")
+    fun getBusDirectionByKey(
+            @Query("handlerName") handlerName: String,
+            @Query("key") key: String,
+            @Query("_") timestamp: Long
+    ): Observable<BusDirectBean>
 }
 
-object LiveApi {
-    val server: LiveService = RetrofitManager.instance
+object BusApi {
+    val SERVER: BusService = RetrofitManager.instance
             .getRetrofit(AppConf.baseUrl)
-            .create(LiveService::class.java)
+            .create(BusService::class.java)
 }

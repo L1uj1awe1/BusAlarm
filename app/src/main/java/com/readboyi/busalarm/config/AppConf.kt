@@ -10,9 +10,9 @@ object AppConf {
 
     init {
         if (BuildConfig.DEBUG) {
-            baseUrl = ""
+            baseUrl = "http://test.zhbuswx.com/"
         } else {
-            baseUrl = ""
+            baseUrl = "http://www.zhbuswx.com/"
         }
     }
 
