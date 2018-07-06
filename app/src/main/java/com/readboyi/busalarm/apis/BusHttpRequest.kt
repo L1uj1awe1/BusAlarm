@@ -11,7 +11,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by L1uj1awe1 on 2018/7/6.
  */
-class BusHttpRequest(context: Context) {
+class BusHttpRequest(context: Context?) {
 
     var context: Context? = null
     var listener: BusHttpRequestListener? = null
