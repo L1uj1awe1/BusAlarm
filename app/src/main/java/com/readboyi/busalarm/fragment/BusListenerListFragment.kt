@@ -11,10 +11,13 @@ import android.view.ViewGroup
 import com.readboy.educationmanager.adapter.BusListenerAdapter
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.data.BusListenerBean
+import com.readboyi.busalarm.database.BusDBManager
 import kotlinx.android.synthetic.main.fragment_bus_listener.*
 import java.util.ArrayList
 
 class BusListenerListFragment : Fragment() {
+
+    var mBusDBManager: BusDBManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +35,8 @@ class BusListenerListFragment : Fragment() {
 
 
     private fun init() {
+        mBusDBManager = BusDBManager(context)
+
         list_bus_listener.adapter = BusListenerAdapter()
         list_bus_listener.layoutManager = LinearLayoutManager(context)
         list_bus_listener.itemAnimator = DefaultItemAnimator()
@@ -39,14 +44,9 @@ class BusListenerListFragment : Fragment() {
     }
 
     private fun getListFromDatabase () {
-        //读取数据库
-        val l = ArrayList<BusListenerBean>()
-        l.add(BusListenerBean("8", "珠海拱北口岸", "明珠中", false))
-        l.add(BusListenerBean("8", "珠海拱北口岸", "明珠中", false))
-        l.add(BusListenerBean("8", "珠海拱北口岸", "明珠中", false))
-        l.add(BusListenerBean("8", "珠海拱北口岸", "明珠中", false))
-
-        notifyDataChange(l)
+        mBusDBManager?.insertListenStation("8", "珠海拱北口岸", "明珠中", 1)
+        val list: ArrayList<BusListenerBean> = mBusDBManager?.queryListenStations() ?: ArrayList<BusListenerBean>()
+        notifyDataChange(list)
     }
 
     fun notifyDataChange (list: ArrayList<BusListenerBean>){
@@ -56,7 +56,7 @@ class BusListenerListFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // 关闭数据库
+        mBusDBManager?.close()
     }
 
     companion object {
