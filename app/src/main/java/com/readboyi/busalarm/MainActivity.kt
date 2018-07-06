@@ -3,7 +3,7 @@ package com.readboyi.busalarm
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.pgyersdk.crash.PgyCrashManager
-import com.readboyi.busalarm.fragment.BusListenerFragment
+import com.readboyi.busalarm.fragment.BusListenerListFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFragment() {
-        val busListenerFragment = BusListenerFragment.newInstance()
+        val busListenerFragment = BusListenerListFragment.newInstance()
         supportFragmentManager.beginTransaction().replace(R.id.fl_bus_listener_layout, busListenerFragment).commit()
     }
 
