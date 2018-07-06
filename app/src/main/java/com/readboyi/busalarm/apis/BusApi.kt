@@ -3,6 +3,7 @@ package com.readboyi.busalarm.apis
 import com.readboyi.busalarm.config.AppConf
 import com.readboyi.busalarm.data.BusDirectBean
 import com.readboyi.busalarm.data.BusStationsBean
+import com.readboyi.busalarm.data.BusStatusBean
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -31,6 +32,13 @@ interface BusService {
             @Query("id") id: String,
             @Query("_") timestamp: Long
     ): Observable<BusStationsBean>
+
+    @GET("RealTime/GetRealTime")
+    fun getBusStatusByLine (
+            @Query("id") id: String,
+            @Query("fromStation") fromStation: String,
+            @Query("_") timestamp: Long
+    ): Observable<BusStatusBean>
 }
 
 object BusApi {

@@ -1,10 +1,10 @@
 package com.readboyi.busalarm.apis
 
 import android.content.Context
-import com.orhanobut.logger.Logger
 import com.pgyersdk.crash.PgyCrashManager
 import com.readboyi.busalarm.data.BusDirectBean
 import com.readboyi.busalarm.data.BusStationsBean
+import com.readboyi.busalarm.data.BusStatusBean
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
@@ -66,9 +66,33 @@ class BusHttpRequest(context: Context) {
         }
     }
 
+    /**
+     * 根据公交号码、起始站点，获取当前路线车辆到达状况
+     */
+    fun requestBusStatus (id: String, fromStation: String) {
+        try {
+            BusApi.SERVER.getBusStatusByLine(id, fromStation, System.currentTimeMillis())
+                    .doOnSubscribe {}
+                    .retry(2)
+                    .subscribeOn(Schedulers.io())
+                    .subscribeBy (
+                            onError = {
+                                it.printStackTrace()
+                            },
+                            onNext = {
+                                listener?.onBusStatus(it)
+                            }
+                    )
+        } catch (e: Exception) {
+            e.printStackTrace()
+            PgyCrashManager.reportCaughtException(context, e)
+        }
+    }
+
     interface BusHttpRequestListener {
         fun onBusDirection(bean: BusDirectBean)
         fun onBusStations(bean: BusStationsBean)
+        fun onBusStatus(bean: BusStatusBean)
     }
 
 }
