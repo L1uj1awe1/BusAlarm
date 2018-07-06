@@ -75,26 +75,25 @@ class BusDBManager(context: Context?) {
         return true
     }
 
-//    fun deleteListenLine(lineId: String?,station: String?, fromStation: String?){
-//        if(lineId == null || station == null || fromStation == null){
-//            return
-//        }
-//        dbWrite?.delete(Constants.TABLE_ITEM
-//                ,"${Constants.COLUMN_LINE_ID} = ? and ${Constants.COLUMN_LISTEN_STATION} = ? and ${Constants.COLUMN_FROM_STATION} = ?"
-//                ,arrayOf(lineId,station,fromStation))
-//    }
-//
-//    fun updateListenLine(lineId: String,station: String, fromStation: String,newLineId: String,newStation: String, newFromStation: String,newListen: Int){
-//        val values = ContentValues()
-//        values.put(Constants.COLUMN_LINE_ID, newLineId)
-//        values.put(Constants.COLUMN_LISTEN_STATION, newStation)
-//        values.put(Constants.COLUMN_FROM_STATION, newFromStation)
-//        values.put(Constants.COLUMN_LISTENING, newListen)
-//        queryListenStations()
-//        dbWrite?.update(Constants.TABLE_ITEM
-//                , values, "${Constants.COLUMN_LINE_ID} = ? and ${Constants.COLUMN_LISTEN_STATION} = ? and ${Constants.COLUMN_FROM_STATION} = ?"
-//                ,arrayOf(lineId,station,fromStation))
-//        queryListenStations()
-//    }
+    /**
+     * 删除监听线路
+     */
+    fun deleteListenLine(key: String,station: String, fromStation: String){
+        dbWrite?.delete(DBConstant.TABLE_BUS_LISTENER
+                ,"${DBConstant.COLUMN_KEY} = ? and ${DBConstant.COLUMN_FROM_STATION} = ? and ${DBConstant.COLUMN_STATION} = ?"
+                ,arrayOf(key,fromStation,station))
+    }
+
+    /**
+     * 更新
+     */
+    fun updateListenLine(bean: BusListenerBean, status: Int): java.util.ArrayList<BusListenerBean>{
+        val values = ContentValues()
+        values.put(DBConstant.COLUMN_STATUS, status)
+        dbWrite?.update(DBConstant.TABLE_BUS_LISTENER
+                , values, "${DBConstant.COLUMN_KEY} = ? and ${DBConstant.COLUMN_FROM_STATION} = ? and ${DBConstant.COLUMN_STATION} = ?"
+                ,arrayOf(bean.key,bean.fromStation,bean.station))
+        return queryListenStations()
+    }
 
 }
