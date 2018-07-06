@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
         btn_test.setOnClickListener{
             request?.requestBusDirection("8")
         }
+        btn_test_2.setOnClickListener {
+            request?.requestBusStations("9306df04-e47a-4d19-b00c-8acca26d900d")
+        }
     }
 
     override fun onDestroy() {

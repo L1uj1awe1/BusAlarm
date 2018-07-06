@@ -4,6 +4,7 @@ import android.content.Context
 import com.orhanobut.logger.Logger
 import com.pgyersdk.crash.PgyCrashManager
 import com.readboyi.busalarm.data.BusDirectBean
+import com.readboyi.busalarm.data.BusStationsBean
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
@@ -20,7 +21,7 @@ class BusHttpRequest(context: Context) {
     }
 
     /**
-     * 获取公交路线信息
+     * 根据公交号码，获取公交路线列表
      */
     fun requestBusDirection (key: String) {
         try {
@@ -37,12 +38,37 @@ class BusHttpRequest(context: Context) {
                             }
                     )
         } catch (e: Exception) {
+            e.printStackTrace()
+            PgyCrashManager.reportCaughtException(context, e)
+        }
+    }
+
+    /**
+     * 根据公交线路id，请求公交站点列表
+     */
+    fun requestBusStations (id: String) {
+        try {
+            BusApi.SERVER.getBusStationsById(id, System.currentTimeMillis())
+                    .doOnSubscribe {}
+                    .retry(2)
+                    .subscribeOn(Schedulers.io())
+                    .subscribeBy (
+                            onError = {
+                                it.printStackTrace()
+                            },
+                            onNext = {
+                                listener?.onBusStations(it)
+                            }
+                    )
+        } catch (e: Exception) {
+            e.printStackTrace()
             PgyCrashManager.reportCaughtException(context, e)
         }
     }
 
     interface BusHttpRequestListener {
         fun onBusDirection(bean: BusDirectBean)
+        fun onBusStations(bean: BusStationsBean)
     }
 
 }

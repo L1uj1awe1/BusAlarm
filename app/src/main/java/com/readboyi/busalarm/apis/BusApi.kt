@@ -2,6 +2,7 @@ package com.readboyi.busalarm.apis
 
 import com.readboyi.busalarm.config.AppConf
 import com.readboyi.busalarm.data.BusDirectBean
+import com.readboyi.busalarm.data.BusStationsBean
 import io.reactivex.Observable
 import retrofit2.http.*
 
@@ -19,6 +20,17 @@ interface BusService {
             @Query("key") key: String,
             @Query("_") timestamp: Long
     ): Observable<BusDirectBean>
+
+    /**
+     * @aim 根据公交路线id获取站点信息
+     * @param id 交路线id 由getBusDirectionByKey接口获得
+     * @param _ 时间戳 System.currentTimeMillis()
+     */
+    @GET("StationList/GetStationList")
+    fun getBusStationsById(
+            @Query("id") id: String,
+            @Query("_") timestamp: Long
+    ): Observable<BusStationsBean>
 }
 
 object BusApi {
