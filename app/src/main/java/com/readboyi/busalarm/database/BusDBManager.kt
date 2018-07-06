@@ -75,4 +75,26 @@ class BusDBManager(context: Context?) {
         return true
     }
 
+//    fun deleteListenLine(lineId: String?,station: String?, fromStation: String?){
+//        if(lineId == null || station == null || fromStation == null){
+//            return
+//        }
+//        dbWrite?.delete(Constants.TABLE_ITEM
+//                ,"${Constants.COLUMN_LINE_ID} = ? and ${Constants.COLUMN_LISTEN_STATION} = ? and ${Constants.COLUMN_FROM_STATION} = ?"
+//                ,arrayOf(lineId,station,fromStation))
+//    }
+//
+//    fun updateListenLine(lineId: String,station: String, fromStation: String,newLineId: String,newStation: String, newFromStation: String,newListen: Int){
+//        val values = ContentValues()
+//        values.put(Constants.COLUMN_LINE_ID, newLineId)
+//        values.put(Constants.COLUMN_LISTEN_STATION, newStation)
+//        values.put(Constants.COLUMN_FROM_STATION, newFromStation)
+//        values.put(Constants.COLUMN_LISTENING, newListen)
+//        queryListenStations()
+//        dbWrite?.update(Constants.TABLE_ITEM
+//                , values, "${Constants.COLUMN_LINE_ID} = ? and ${Constants.COLUMN_LISTEN_STATION} = ? and ${Constants.COLUMN_FROM_STATION} = ?"
+//                ,arrayOf(lineId,station,fromStation))
+//        queryListenStations()
+//    }
+
 }
