@@ -13,7 +13,7 @@ interface BusService {
      * @param key 公交号码，例如：8路
      * @param _ 时间戳 System.currentTimeMillis()
      */
-    @POST("Handlers/BusQuery.ashx")
+    @GET("Handlers/BusQuery.ashx")
     fun getBusDirectionByKey(
             @Query("handlerName") handlerName: String,
             @Query("key") key: String,
