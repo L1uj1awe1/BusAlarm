@@ -8,8 +8,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.readboy.educationmanager.adapter.BusListenerAdapter
 import com.readboyi.busalarm.R
+import com.readboyi.busalarm.adapter.BusListenerAdapter
 import com.readboyi.busalarm.data.BusListenerBean
 import com.readboyi.busalarm.database.BusDBManager
 import kotlinx.android.synthetic.main.fragment_bus_listener.*
@@ -37,10 +37,12 @@ class BusListenerListFragment : Fragment() {
     private fun init() {
         mBusDBManager = BusDBManager(context)
 
-        list_bus_listener.adapter = BusListenerAdapter()
-        list_bus_listener.layoutManager = LinearLayoutManager(context)
-        list_bus_listener.itemAnimator = DefaultItemAnimator()
-        list_bus_listener.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        list_bus_listener.run {
+            adapter = BusListenerAdapter()
+            layoutManager = LinearLayoutManager(context)
+            itemAnimator = DefaultItemAnimator()
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        }
     }
 
     private fun getListFromDatabase () {
@@ -51,6 +53,7 @@ class BusListenerListFragment : Fragment() {
 
     fun notifyDataChange (list: ArrayList<BusListenerBean>){
         (list_bus_listener.adapter as BusListenerAdapter).list = list
+        (list_bus_listener.adapter as BusListenerAdapter).mBusDBManager = mBusDBManager
         list_bus_listener.adapter.notifyDataSetChanged()
     }
 

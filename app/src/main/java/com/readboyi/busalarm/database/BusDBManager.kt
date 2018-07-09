@@ -85,10 +85,11 @@ class BusDBManager(context: Context?) {
     }
 
     /**
-     * 更新
+     * 更新监听状态
      */
-    fun updateListenLine(bean: BusListenerBean, status: Int): java.util.ArrayList<BusListenerBean>{
+    fun updateListenLine(bean: BusListenerBean): java.util.ArrayList<BusListenerBean>{
         val values = ContentValues()
+        val status = if (bean.status == 0) 1 else 0
         values.put(DBConstant.COLUMN_STATUS, status)
         dbWrite?.update(DBConstant.TABLE_BUS_LISTENER
                 , values, "${DBConstant.COLUMN_KEY} = ? and ${DBConstant.COLUMN_FROM_STATION} = ? and ${DBConstant.COLUMN_STATION} = ?"
