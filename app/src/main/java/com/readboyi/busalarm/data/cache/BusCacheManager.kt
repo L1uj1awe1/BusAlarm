@@ -4,7 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.readboyi.busalarm.data.bean.*
-import com.readboyi.busalarm.data.database.DB
+import com.readboyi.busalarm.data.database.BusDB
 import com.readboyi.busalarm.data.database.DBConstant
 
 /**
@@ -14,11 +14,11 @@ class BusCacheManager(context: Context?) {
 
     private var dbRead: SQLiteDatabase? = null
     private var dbWrite: SQLiteDatabase? = null
-    private var db: DB? = null
+    private var db: BusDB? = null
 
     init {
         if (context != null) {
-            db = DB(context)
+            db = BusDB(context)
             dbRead = db?.openDatabase(context.applicationContext)
             dbWrite = db?.openDatabase(context.applicationContext)
         }
@@ -49,7 +49,7 @@ class BusCacheManager(context: Context?) {
         bean.data.forEach {
             val values = ContentValues()
             values.put(DBConstant.COLUMN_ID, id)
-            values.put(DBConstant.COLUMN_TIME, System.currentTimeMillis())
+            values.put(DBConstant.COLUMN_TIME, System.currentTimeMillis().toString())
             values.put(DBConstant.COLUMN_DESCRIPTION, it.Description)
             values.put(DBConstant.COLUMN_STATION_ID, it.Id)
             values.put(DBConstant.COLUMN_LAT, it.Lat)
@@ -77,7 +77,7 @@ class BusCacheManager(context: Context?) {
             val Lng: String = c.getString(c.getColumnIndex(DBConstant.COLUMN_LNG))
             val Name: String = c.getString(c.getColumnIndex(DBConstant.COLUMN_NAME))
 
-            time = c.getLong(c.getColumnIndex(DBConstant.COLUMN_TIME))
+            time = c.getString(c.getColumnIndex(DBConstant.COLUMN_TIME)).toLong()
 
             val item = BusStationsListBean(description, Id, Lat, Lng, Name)
             list.add(item)
@@ -112,7 +112,7 @@ class BusCacheManager(context: Context?) {
             val values = ContentValues()
 
             values.put(DBConstant.COLUMN_BUS_KEY, key)
-            values.put(DBConstant.COLUMN_BUS_TIME, System.currentTimeMillis())
+            values.put(DBConstant.COLUMN_BUS_TIME, System.currentTimeMillis().toString())
             values.put(DBConstant.COLUMN_BEGINTIME, it.BeginTime)
             values.put(DBConstant.COLUMN_BUS_Description, it.Description)
             values.put(DBConstant.COLUMN_Direction, it.Direction)
@@ -141,7 +141,7 @@ class BusCacheManager(context: Context?) {
         val selection = "${DBConstant.COLUMN_BUS_KEY}=?"
         val selectionArgs = arrayOf(key)
         val c = dbRead?.query(DBConstant.TABLE_BUS_DIRECT, null, selection, selectionArgs, null, null, null)
-        val time = 0.toLong()
+        var time: Long = 0.toLong()
         while (c != null && c.moveToNext()){
 
             val beginTime: String = c.getString(c.getColumnIndex(DBConstant.COLUMN_BEGINTIME))
@@ -156,6 +156,8 @@ class BusCacheManager(context: Context?) {
             val Price: String = c.getString(c.getColumnIndex(DBConstant.COLUMN_Price))
             val StationCount: Int = c.getInt(c.getColumnIndex(DBConstant.COLUMN_StationCount))
             val ToStation: String = c.getString(c.getColumnIndex(DBConstant.COLUMN_ToStation))
+
+            time = c.getString(c.getColumnIndex(DBConstant.COLUMN_BUS_TIME)).toLong()
 
             val item = BusInfoBean(beginTime, description, direction, EndTime, FromStation, Id, Interval, LineNumber, Name, Price, StationCount, ToStation)
             list.add(item)

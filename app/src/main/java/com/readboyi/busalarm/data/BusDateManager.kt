@@ -32,6 +32,9 @@ class BusDateManager(val context: Context) : BusHttpManager.BusHttpRequestListen
         mBusHttpManager?.listener = this
     }
 
+    /**
+     * 请求站点数据
+     */
     fun requestBusStation(id: String) {
         val currentTime = System.currentTimeMillis()
         val cacheStation = mBusCacheManager?.queryBusStationsFromCache(id)
@@ -50,6 +53,9 @@ class BusDateManager(val context: Context) : BusHttpManager.BusHttpRequestListen
         }
     }
 
+    /**
+     * 请求方向线路数据
+     */
     fun requestBusDirect(key: String) {
         val currentTime = System.currentTimeMillis()
         val cacheDirect = mBusCacheManager?.queryBusDirectFromCache(key)
