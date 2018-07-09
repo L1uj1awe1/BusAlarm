@@ -41,12 +41,11 @@ class BusListenerListFragment : Fragment() {
             adapter = BusListenerAdapter()
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
     }
 
     private fun getListFromDatabase () {
-        mBusDBManager?.insertListenStation("8", "珠海拱北口岸", "明珠中", 1)
+        mBusDBManager?.insertListenStation("8", "珠海拱北口岸", "明珠中-珠海拱北口岸", 1)
         val list: ArrayList<BusListenerBean> = mBusDBManager?.queryListenStations() ?: ArrayList<BusListenerBean>()
         notifyDataChange(list)
     }

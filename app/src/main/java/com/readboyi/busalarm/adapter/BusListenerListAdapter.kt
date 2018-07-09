@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.data.BusListenerBean
@@ -22,13 +23,20 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
         val bean = list[position]
         holder.tvBusKey.text = bean.key
         holder.tvFromStation.text = bean.fromStation
-        holder.tvStation.text = bean.station
-        holder.tvStatus.text = bean.status.toString()
+        holder.tvStation.text = "监听站点：${bean.station}"
 
-        holder.itemView.setOnClickListener {
-            list = mBusDBManager?.updateListenLine(bean) ?: arrayListOf()
-            notifyDataSetChanged()
+        holder.itemView.run {
+            setOnClickListener {
+                list = mBusDBManager?.updateListenLine(bean) ?: arrayListOf()
+                notifyDataSetChanged()
+            }
+            if (bean.status == 0) {
+                holder.rlView.visibility = View.VISIBLE
+            } else {
+                holder.rlView.visibility = View.GONE
+            }
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -43,6 +51,6 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
         var tvBusKey: TextView = view.tv_bus_key
         var tvFromStation: TextView = view.tv_from_station
         var tvStation: TextView = view.tv_station
-        var tvStatus: TextView = view.tv_status
+        var rlView: RelativeLayout = view.rl_view
     }
 }
