@@ -44,7 +44,6 @@ class BusListenerListFragment : Fragment() {
     }
 
     private fun getListFromDatabase () {
-        mBusDBManager?.insertListenStation("8", "珠海拱北口岸", "明珠中-珠海拱北口岸", 1)
         val list: ArrayList<BusListenerBean> = mBusDBManager?.queryListenStations() ?: ArrayList<BusListenerBean>()
         notifyDataChange(list)
     }

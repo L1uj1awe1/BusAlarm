@@ -10,12 +10,12 @@ class BusDBManager(context: Context?) {
     private var context: Context? = null
     private var dbRead: SQLiteDatabase? = null
     private var dbWrite: SQLiteDatabase? = null
-    private var db: DB? = null
+    private var db: BusDB? = null
 
     init {
         this.context = context
         if (context != null) {
-            db = DB(context)
+            db = BusDB(context)
             dbRead = db?.openDatabase(context.applicationContext)
             dbWrite = db?.openDatabase(context.applicationContext)
         }
