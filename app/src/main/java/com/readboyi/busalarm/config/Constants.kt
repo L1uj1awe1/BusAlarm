@@ -4,5 +4,5 @@ package com.readboyi.busalarm.config
  * Created by alex on 9/1/17.
  */
 object Constants {
-
+    val CACHE_EXPIRED_TIME = 7 * 24 * 60 * 60
 }

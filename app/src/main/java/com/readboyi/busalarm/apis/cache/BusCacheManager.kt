@@ -3,10 +3,7 @@ package com.readboyi.busalarm.apis.cache
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.readboyi.busalarm.data.BusDirectBean
-import com.readboyi.busalarm.data.BusInfoBean
-import com.readboyi.busalarm.data.BusStationsBean
-import com.readboyi.busalarm.data.BusStationsListBean
+import com.readboyi.busalarm.data.*
 import com.readboyi.busalarm.database.DB
 import com.readboyi.busalarm.database.DBConstant
 
@@ -66,11 +63,12 @@ class BusCacheManager(context: Context?) {
      * 根据id：例如afad-adfd-adsfdff-sdfsdf
      * 从缓存获取对应的站点列表
      */
-    fun queryBusStationsFromCache(id: String): ArrayList<BusStationsListBean>{
+    fun queryBusStationsFromCache(id: String): CacheStationBean {
         val list: ArrayList<BusStationsListBean> = ArrayList()
         val selection = "${DBConstant.COLUMN_ID}=?"
         val selectionArgs = arrayOf(id)
         val c = dbRead?.query(DBConstant.TABLE_BUS_STATION, null, selection, selectionArgs, null, null, null)
+        var time: Long = 0.toLong()
         while (c != null && c.moveToNext()){
 
             val description: String = c.getString(c.getColumnIndex(DBConstant.COLUMN_DESCRIPTION))
@@ -79,11 +77,22 @@ class BusCacheManager(context: Context?) {
             val Lng: String = c.getString(c.getColumnIndex(DBConstant.COLUMN_LNG))
             val Name: String = c.getString(c.getColumnIndex(DBConstant.COLUMN_NAME))
 
+            time = c.getLong(c.getColumnIndex(DBConstant.COLUMN_TIME))
+
             val item = BusStationsListBean(description, Id, Lat, Lng, Name)
             list.add(item)
         }
         c?.close()
-        return list
+        return CacheStationBean(time, list)
+    }
+
+    /**
+     * 删除站点缓存
+     */
+    fun deleteBusStationsFromCache(id: String){
+        dbWrite?.delete(DBConstant.TABLE_BUS_STATION
+                ,"${DBConstant.COLUMN_ID} = ?"
+                ,arrayOf(id))
     }
 
     /**
@@ -126,12 +135,13 @@ class BusCacheManager(context: Context?) {
      * 根据key： 泪如K1
      * 缓存对应的线路
      */
-    fun queryBusDirectFromKey(key: String): ArrayList<BusInfoBean>{
+    fun queryBusDirectFromCache(key: String): CacheDirectBean{
 
         val list: ArrayList<BusInfoBean> = ArrayList()
         val selection = "${DBConstant.COLUMN_BUS_KEY}=?"
         val selectionArgs = arrayOf(key)
         val c = dbRead?.query(DBConstant.TABLE_BUS_DIRECT, null, selection, selectionArgs, null, null, null)
+        val time = 0.toLong()
         while (c != null && c.moveToNext()){
 
             val beginTime: String = c.getString(c.getColumnIndex(DBConstant.COLUMN_BEGINTIME))
@@ -151,6 +161,15 @@ class BusCacheManager(context: Context?) {
             list.add(item)
         }
         c?.close()
-        return list
+        return CacheDirectBean(time, list)
+    }
+
+    /**
+     * 删除站点缓存
+     */
+    fun deleteBusDirectFromCache(key: String){
+        dbWrite?.delete(DBConstant.TABLE_BUS_DIRECT
+                ,"${DBConstant.COLUMN_BUS_KEY} = ?"
+                ,arrayOf(key))
     }
 }
