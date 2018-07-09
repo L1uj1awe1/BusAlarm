@@ -1,11 +1,11 @@
-package com.readboyi.busalarm.apis.http
+package com.readboyi.busalarm.data.http
 
 import android.content.Context
 import com.pgyersdk.crash.PgyCrashManager
-import com.readboyi.busalarm.apis.cache.BusCacheManager
-import com.readboyi.busalarm.data.BusDirectBean
-import com.readboyi.busalarm.data.BusStationsBean
-import com.readboyi.busalarm.data.BusStatusBean
+import com.readboyi.busalarm.data.cache.BusCacheManager
+import com.readboyi.busalarm.data.bean.BusDirectBean
+import com.readboyi.busalarm.data.bean.BusStationsBean
+import com.readboyi.busalarm.data.bean.BusStatusBean
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 

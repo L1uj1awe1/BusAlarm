@@ -1,4 +1,4 @@
-package com.readboyi.busalarm.apis.http
+package com.readboyi.busalarm.data.http
 
 import android.content.Context
 import android.os.Build

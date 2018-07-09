@@ -1,4 +1,4 @@
-package com.readboyi.busalarm.data
+package com.readboyi.busalarm.data.bean
 
 /**
  * Created by liujiawei on 18-7-9.

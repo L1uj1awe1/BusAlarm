@@ -1,9 +1,9 @@
-package com.readboyi.busalarm.apis.http
+package com.readboyi.busalarm.data.http
 
 import com.readboyi.busalarm.config.AppConf
-import com.readboyi.busalarm.data.BusDirectBean
-import com.readboyi.busalarm.data.BusStationsBean
-import com.readboyi.busalarm.data.BusStatusBean
+import com.readboyi.busalarm.data.bean.BusDirectBean
+import com.readboyi.busalarm.data.bean.BusStationsBean
+import com.readboyi.busalarm.data.bean.BusStatusBean
 import io.reactivex.Observable
 import retrofit2.http.*
 

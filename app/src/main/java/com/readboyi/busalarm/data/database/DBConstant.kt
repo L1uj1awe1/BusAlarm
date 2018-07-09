@@ -1,4 +1,4 @@
-package com.readboyi.busalarm.database
+package com.readboyi.busalarm.data.database
 
 /**
  * Created by liujiawei on 18-7-6.

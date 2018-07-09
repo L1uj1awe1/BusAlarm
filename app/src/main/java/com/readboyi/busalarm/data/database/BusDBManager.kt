@@ -1,9 +1,9 @@
-package com.readboyi.busalarm.database
+package com.readboyi.busalarm.data.database
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.readboyi.busalarm.data.BusListenerBean
+import com.readboyi.busalarm.data.bean.BusListenerBean
 
 class BusDBManager(context: Context?) {
 
@@ -42,7 +42,7 @@ class BusDBManager(context: Context?) {
             val station = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION))
             val status = c.getInt(c.getColumnIndex(DBConstant.COLUMN_STATUS))
 
-            val item = BusListenerBean(key,fromStation,station,status)
+            val item = BusListenerBean(key, fromStation, station, status)
             list.add(item)
         }
         c?.close()

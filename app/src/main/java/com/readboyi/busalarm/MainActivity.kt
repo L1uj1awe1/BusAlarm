@@ -3,7 +3,7 @@ package com.readboyi.busalarm
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.pgyersdk.crash.PgyCrashManager
-import com.readboyi.busalarm.fragment.BusListenerListFragment
+import com.readboyi.busalarm.controller.fragment.BusListenerListFragment
 
 class MainActivity : AppCompatActivity() {
 

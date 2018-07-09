@@ -1,4 +1,4 @@
-package com.readboyi.busalarm.database;
+package com.readboyi.busalarm.data.database;
 
 import android.content.Context;
 import android.content.res.AssetManager;

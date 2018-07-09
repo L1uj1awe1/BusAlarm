@@ -8,8 +8,8 @@ import android.widget.RelativeLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import com.readboyi.busalarm.R
-import com.readboyi.busalarm.data.BusListenerBean
-import com.readboyi.busalarm.database.BusDBManager
+import com.readboyi.busalarm.data.bean.BusListenerBean
+import com.readboyi.busalarm.data.database.BusDBManager
 import kotlinx.android.synthetic.main.adapter_bus_listener.view.*
 
 /**

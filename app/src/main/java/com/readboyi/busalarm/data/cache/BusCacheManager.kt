@@ -1,11 +1,11 @@
-package com.readboyi.busalarm.apis.cache
+package com.readboyi.busalarm.data.cache
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
-import com.readboyi.busalarm.data.*
-import com.readboyi.busalarm.database.DB
-import com.readboyi.busalarm.database.DBConstant
+import com.readboyi.busalarm.data.bean.*
+import com.readboyi.busalarm.data.database.DB
+import com.readboyi.busalarm.data.database.DBConstant
 
 /**
  * Created by liujiawei on 18-7-9.
@@ -135,7 +135,7 @@ class BusCacheManager(context: Context?) {
      * 根据key： 泪如K1
      * 缓存对应的线路
      */
-    fun queryBusDirectFromCache(key: String): CacheDirectBean{
+    fun queryBusDirectFromCache(key: String): CacheDirectBean {
 
         val list: ArrayList<BusInfoBean> = ArrayList()
         val selection = "${DBConstant.COLUMN_BUS_KEY}=?"

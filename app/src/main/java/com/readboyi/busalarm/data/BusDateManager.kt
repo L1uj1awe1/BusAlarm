@@ -1,10 +1,10 @@
-package com.readboyi.busalarm.apis
+package com.readboyi.busalarm.data
 
 import android.content.Context
-import com.readboyi.busalarm.apis.cache.BusCacheManager
-import com.readboyi.busalarm.apis.http.BusHttpManager
+import com.readboyi.busalarm.data.cache.BusCacheManager
+import com.readboyi.busalarm.data.http.BusHttpManager
 import com.readboyi.busalarm.config.Constants
-import com.readboyi.busalarm.data.*
+import com.readboyi.busalarm.data.bean.*
 
 /**
  * Created by liujiawei on 18-7-9.
