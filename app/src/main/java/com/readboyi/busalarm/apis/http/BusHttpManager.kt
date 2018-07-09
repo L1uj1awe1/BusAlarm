@@ -1,7 +1,8 @@
-package com.readboyi.busalarm.apis
+package com.readboyi.busalarm.apis.http
 
 import android.content.Context
 import com.pgyersdk.crash.PgyCrashManager
+import com.readboyi.busalarm.apis.cache.BusCacheManager
 import com.readboyi.busalarm.data.BusDirectBean
 import com.readboyi.busalarm.data.BusStationsBean
 import com.readboyi.busalarm.data.BusStatusBean
@@ -11,13 +12,15 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by L1uj1awe1 on 2018/7/6.
  */
-class BusHttpRequest(context: Context?) {
+class BusHttpManager(context: Context?) {
 
     var context: Context? = null
     var listener: BusHttpRequestListener? = null
+    var mBusCacheManager: BusCacheManager? = null
 
     init {
         this.context = context
+        mBusCacheManager = BusCacheManager(context)
     }
 
     /**
@@ -34,6 +37,7 @@ class BusHttpRequest(context: Context?) {
                                 it.printStackTrace()
                             },
                             onNext = {
+                                mBusCacheManager?.cacheBusDirect(key, it)
                                 listener?.onBusDirection(it)
                             }
                     )
@@ -57,6 +61,7 @@ class BusHttpRequest(context: Context?) {
                                 it.printStackTrace()
                             },
                             onNext = {
+                                mBusCacheManager?.cacheBusStations(id, it)
                                 listener?.onBusStations(it)
                             }
                     )
@@ -87,6 +92,10 @@ class BusHttpRequest(context: Context?) {
             e.printStackTrace()
             PgyCrashManager.reportCaughtException(context, e)
         }
+    }
+
+    fun onDestroy() {
+        mBusCacheManager?.close()
     }
 
     interface BusHttpRequestListener {

@@ -1,4 +1,4 @@
-package com.readboyi.busalarm.apis
+package com.readboyi.busalarm.apis.http
 
 import com.readboyi.busalarm.config.AppConf
 import com.readboyi.busalarm.data.BusDirectBean
