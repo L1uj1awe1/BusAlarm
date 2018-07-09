@@ -41,6 +41,17 @@
             android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
             />
+        <SeekBar
+            android:id="@+id/seek_bar"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:max="100"
+            android:progress="50"
+            android:thumb="@null"
+            />
     </RelativeLayout>
 
     <RelativeLayout

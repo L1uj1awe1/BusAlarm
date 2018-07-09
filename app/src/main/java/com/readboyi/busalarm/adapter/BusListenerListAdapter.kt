@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.SeekBar
 import android.widget.TextView
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.data.BusListenerBean
@@ -32,10 +33,13 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
             }
             if (bean.status == 0) {
                 holder.rlView.visibility = View.VISIBLE
+                holder.seekBar.progress = 0
             } else {
                 holder.rlView.visibility = View.GONE
             }
         }
+
+        holder.seekBar.setOnTouchListener{_, _ -> true}
 
     }
 
@@ -52,5 +56,6 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
         var tvFromStation: TextView = view.tv_from_station
         var tvStation: TextView = view.tv_station
         var rlView: RelativeLayout = view.rl_view
+        var seekBar: SeekBar = view.seek_bar
     }
 }
