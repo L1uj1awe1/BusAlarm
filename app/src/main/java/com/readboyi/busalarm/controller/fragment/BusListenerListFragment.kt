@@ -29,7 +29,7 @@ class BusListenerListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        getListFromDatabase()
+        notifyDataChange()
     }
 
 
@@ -43,12 +43,9 @@ class BusListenerListFragment : Fragment() {
         }
     }
 
-    private fun getListFromDatabase () {
-        val list: ArrayList<BusListenerBean> = mBusDBManager?.queryListenStations() ?: ArrayList<BusListenerBean>()
-        notifyDataChange(list)
-    }
 
-    fun notifyDataChange (list: ArrayList<BusListenerBean>){
+    fun notifyDataChange (){
+        val list: ArrayList<BusListenerBean> = mBusDBManager?.queryListenStations() ?: ArrayList<BusListenerBean>()
         (list_bus_listener.adapter as BusListenerAdapter).list = list
         (list_bus_listener.adapter as BusListenerAdapter).mBusDBManager = mBusDBManager
         list_bus_listener.adapter.notifyDataSetChanged()
