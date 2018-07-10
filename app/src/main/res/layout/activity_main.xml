@@ -20,26 +20,26 @@
 
         <com.github.mzule.fantasyslide.SideBar
             android:id="@+id/leftSideBar"
-            android:layout_width="250dp"
+            android:layout_width="220dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@color/colorPrimary"
-            app:maxTranslationX="66dp">
+            app:maxTranslationX="50dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
-                android:orientation="vertical">
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="50dp"
+                android:orientation="vertical"
+                >
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:text="2018年已过："
                     android:textColor="@color/white"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:gravity="center"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -52,61 +52,56 @@
 
             <!-- 这里是 SideBar 的子视图-->
             <TextView
+                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="65dp"
                 android:textColor="@drawable/menu_item_bg"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:drawableStart="@drawable/add"
                 android:drawablePadding="10dp"
                 android:text="新建提醒"/>
 
             <TextView
+                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="65dp"
                 android:textColor="@drawable/menu_item_bg"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:drawableStart="@drawable/stastictis"
                 android:drawablePadding="10dp"
                 android:text="公交统计"/>
 
             <TextView
+                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="65dp"
                 android:textColor="@drawable/menu_item_bg"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:drawableStart="@drawable/tuwen"
                 android:drawablePadding="10dp"
                 android:text="今日鸡汤"/>
 
             <TextView
+                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="65dp"
                 android:textColor="@drawable/menu_item_bg"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:drawableStart="@drawable/setting32"
                 android:drawablePadding="10dp"
                 android:text="应用设置"/>
 
             <TextView
+                android:layout_marginStart="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="65dp"
                 android:textColor="@drawable/menu_item_bg"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:gravity="center"
-                android:layout_marginStart="10dp"
-                android:layout_marginEnd="10dp"
                 android:drawableStart="@drawable/advice32"
                 android:drawablePadding="10dp"
                 android:text="建议反馈"/>
