@@ -97,4 +97,5 @@ dependencies {
     implementation "com.orhanobut:logger:$logger_version"
 
     implementation 'com.weigan:loopView:0.1.2'
+    implementation 'com.github.mzule.fantasyslide:library:1.0.3'
 }
