@@ -16,6 +16,8 @@ import android.widget.Toast
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    var tmp: TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -50,14 +52,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         leftSideBar.setFantasyListener(object : SimpleFantasyListener() {
 
             override fun onHover(@Nullable view: View?): Boolean {
-                tipView.visibility = View.VISIBLE
                 if (view is TextView) {
+                    tmp?.textSize = 18F
+                    tmp = view
+                    view.textSize = 22F
                     tipView.text = view.text.toString()
+                    if (view.text.toString().isNotEmpty()) {
+                        tipView.visibility = View.VISIBLE
+                    }
                 }
                 return false
             }
 
             override fun onSelect(view: View): Boolean {
+                tmp?.textSize = 18F
                 tipView.visibility = View.INVISIBLE
                 if (view is TextView) {
                     Toast.makeText(applicationContext, view.text.toString(), Toast.LENGTH_SHORT).show()
@@ -66,6 +74,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onCancel() {
+                tmp?.textSize = 18F
                 tipView.visibility = View.INVISIBLE
             }
 
