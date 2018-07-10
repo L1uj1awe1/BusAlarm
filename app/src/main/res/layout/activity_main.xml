@@ -6,8 +6,39 @@
     tools:context="com.readboyi.busalarm.MainActivity"
     android:background="@color/bg_gray">
 
+    <RelativeLayout
+        android:id="@+id/bus_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:layout_centerInParent="true"
+            android:text="公交提醒"/>
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:background="@drawable/add"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/shadow"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
     <com.github.mzule.fantasyslide.FantasyDrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/drawerLayout"
+        android:layout_below="@+id/bus_action_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -20,7 +51,7 @@
 
         <com.github.mzule.fantasyslide.SideBar
             android:id="@+id/leftSideBar"
-            android:layout_width="220dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@color/colorPrimary"
