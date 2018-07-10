@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.annotation.Nullable
+import android.support.v4.view.GravityCompat
 import android.view.View
 import com.github.mzule.fantasyslide.SimpleFantasyListener
 import com.pgyersdk.crash.PgyCrashManager
@@ -13,18 +14,35 @@ import android.widget.TextView
 import android.widget.Toast
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
-        initMenu()
-        initFragment()
     }
 
     private fun init() {
         PgyCrashManager.register(this)
+        initView()
+        initMenu()
+        initFragment()
+    }
+
+    private fun initView(){
+        btn_menu.setOnClickListener(this)
+    }
+
+    override fun onClick(v: View?) {
+        when(v) {
+            btn_menu -> {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START)
+                }
+            }
+        }
     }
 
     private fun initMenu() {
