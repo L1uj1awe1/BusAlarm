@@ -17,4 +17,10 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="custom_seekbar_style" >
+        <item name="android:maxHeight">3dp</item>
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progress_bar</item>
+        <item name="android:minHeight">3dp</item>
+    </style>
 </resources>
