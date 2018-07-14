@@ -1,5 +1,6 @@
 package com.readboyi.busalarm
 
+import android.content.Intent
 import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -11,7 +12,7 @@ import com.pgyersdk.crash.PgyCrashManager
 import com.readboyi.busalarm.controller.fragment.BusListenerListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.TextView
-import android.widget.Toast
+import com.readboyi.busalarm.controller.activity.SecondActivity
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -56,29 +57,30 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     tmp?.textSize = 18F
                     tmp = view
                     view.textSize = 22F
-                    tipView.text = view.text.toString()
-                    if (view.text.toString().isNotEmpty()) {
-                        tipView.visibility = View.VISIBLE
-                    }
                 }
                 return false
             }
 
             override fun onSelect(view: View): Boolean {
                 tmp?.textSize = 18F
-                tipView.visibility = View.INVISIBLE
-                if (view is TextView) {
-                    Toast.makeText(applicationContext, view.text.toString(), Toast.LENGTH_SHORT).show()
+                when (view) {
+                    tv_new_listener -> {
+                        toSecondActivity()
+                    }
                 }
                 return false
             }
 
             override fun onCancel() {
                 tmp?.textSize = 18F
-                tipView.visibility = View.INVISIBLE
             }
 
         })
+    }
+
+    private fun toSecondActivity(){
+        val intent = Intent(this, SecondActivity::class.java)
+        startActivity(intent)
     }
 
     private fun initFragment() {
