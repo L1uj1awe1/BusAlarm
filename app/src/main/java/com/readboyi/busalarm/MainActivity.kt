@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
         val intent = Intent(this, SecondActivity::class.java)
         intent.putExtra("type", type)
         startActivity(intent)
+        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left)
     }
 
     private fun initFragment() {
