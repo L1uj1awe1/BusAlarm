@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.activity.SecondActivity">
 
-</android.support.constraint.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/view_bus_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true">
+
+        <include layout="@layout/view_action_bar"/>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_add_listener"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        />
+
+</RelativeLayout>

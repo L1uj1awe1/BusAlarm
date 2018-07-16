@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
 
     private fun initView() {
         bus_action_bar.listener = this
-        bus_action_bar.init(Constants.ACTION_BAR_MAIN)
+        bus_action_bar.updateActionBarTitle(Constants.ACTION_BAR_MAIN)
     }
 
     override fun onClickBarMenu() {
@@ -48,8 +48,10 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
     }
 
     override fun onClickBarAdd() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        toSecondActivity(Constants.ACTION_BAR_ADD_LESTENER)
     }
+
+    override fun onClickBarBack() {}
 
     private fun initMenu() {
         drawerLayout.setScrimColor(Color.TRANSPARENT)
@@ -68,7 +70,7 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
                 tmp?.textSize = 18F
                 when (view) {
                     tv_new_listener -> {
-                        toSecondActivity()
+                        toSecondActivity(Constants.ACTION_BAR_ADD_LESTENER)
                     }
                 }
                 return false
@@ -81,8 +83,12 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
         })
     }
 
-    private fun toSecondActivity(){
+    /**
+     * 跳转到第二个页面
+     */
+    private fun toSecondActivity(type: Int = 1){
         val intent = Intent(this, SecondActivity::class.java)
+        intent.putExtra("type", type)
         startActivity(intent)
     }
 

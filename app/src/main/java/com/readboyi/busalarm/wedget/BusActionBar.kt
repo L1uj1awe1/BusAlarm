@@ -14,6 +14,7 @@ class BusActionBar(context: Context?, attrs: AttributeSet?) : RelativeLayout(con
 
     interface BusActionBarListener {
         fun onClickBarMenu()
+        fun onClickBarBack()
         fun onClickBarAdd()
     }
 
@@ -24,28 +25,34 @@ class BusActionBar(context: Context?, attrs: AttributeSet?) : RelativeLayout(con
         initView()
     }
 
-    fun init(type: Int = 1) {
+    private fun initView() {
+        btn_bar_menu.setOnClickListener(this)
+        btn_bar_add.setOnClickListener(this)
+        btn_bar_back.setOnClickListener(this)
+    }
+
+    fun updateActionBarTitle(type: Int = 1) {
         when(type) {
             Constants.ACTION_BAR_MAIN -> {
                 tv_bar_title.text = "公交提醒"
                 btn_bar_menu.visibility = View.VISIBLE
+                btn_bar_back.visibility = View.GONE
+                btn_bar_add.visibility = View.VISIBLE
+            }
+            Constants.ACTION_BAR_ADD_LESTENER -> {
+                tv_bar_title.text = "新建提醒"
+                btn_bar_menu.visibility = View.GONE
+                btn_bar_add.visibility = View.GONE
+                btn_bar_back.visibility = View.VISIBLE
             }
         }
-    }
-
-    private fun initView() {
-        btn_bar_menu.setOnClickListener(this)
-        btn_bar_add.setOnClickListener(this)
-    }
-
-    fun updateActionBarTitle(title: String) {
-        tv_bar_title.text = title
     }
 
     override fun onClick(v: View?) {
         when(v){
             btn_bar_menu -> listener?.onClickBarMenu()
             btn_bar_add -> listener?.onClickBarAdd()
+            btn_bar_back -> listener?.onClickBarBack()
         }
     }
 
