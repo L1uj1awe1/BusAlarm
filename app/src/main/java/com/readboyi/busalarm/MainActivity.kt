@@ -12,10 +12,12 @@ import com.pgyersdk.crash.PgyCrashManager
 import com.readboyi.busalarm.controller.fragment.BusListenerListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.TextView
+import com.readboyi.busalarm.config.Constants
 import com.readboyi.busalarm.controller.activity.SecondActivity
+import com.readboyi.busalarm.wedget.BusActionBar
 import kotlinx.android.synthetic.main.view_action_bar.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
 
     var tmp: TextView? = null
 
@@ -33,20 +35,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun initView() {
-        btn_menu.setOnClickListener(this)
-        btn_add.setOnClickListener(this)
+        bus_action_bar.listener = this
+        bus_action_bar.init(Constants.ACTION_BAR_MAIN)
     }
 
-    override fun onClick(v: View?) {
-        when(v) {
-            btn_menu -> {
-                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                } else {
-                    drawerLayout.openDrawer(GravityCompat.START)
-                }
-            }
+    override fun onClickBarMenu() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            drawerLayout.openDrawer(GravityCompat.START)
         }
+    }
+
+    override fun onClickBarAdd() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private fun initMenu() {

@@ -5,4 +5,7 @@ package com.readboyi.busalarm.config
  */
 object Constants {
     val CACHE_EXPIRED_TIME = 7 * 24 * 60 * 60
+
+    val ACTION_BAR_MAIN = 1
+    val ACTION_BAR_SECOND = 2
 }

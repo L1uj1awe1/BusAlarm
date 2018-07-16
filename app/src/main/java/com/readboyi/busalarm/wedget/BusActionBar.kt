@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
+import com.readboyi.busalarm.config.Constants
 import kotlinx.android.synthetic.main.view_action_bar.view.*
 
 /**
@@ -20,10 +21,19 @@ class BusActionBar(context: Context?, attrs: AttributeSet?) : RelativeLayout(con
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        init()
+        initView()
     }
 
-    private fun init() {
+    fun init(type: Int = 1) {
+        when(type) {
+            Constants.ACTION_BAR_MAIN -> {
+                tv_bar_title.text = "公交提醒"
+                btn_bar_menu.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun initView() {
         btn_bar_menu.setOnClickListener(this)
         btn_bar_add.setOnClickListener(this)
     }
