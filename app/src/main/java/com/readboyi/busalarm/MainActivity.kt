@@ -13,7 +13,7 @@ import com.readboyi.busalarm.controller.fragment.BusListenerListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import android.widget.TextView
 import com.readboyi.busalarm.controller.activity.SecondActivity
-
+import kotlinx.android.synthetic.main.view_action_bar.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -27,13 +27,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun init() {
         PgyCrashManager.register(this)
-        initView()
         initMenu()
         initFragment()
+        initView()
     }
 
-    private fun initView(){
+    private fun initView() {
         btn_menu.setOnClickListener(this)
+        btn_add.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
