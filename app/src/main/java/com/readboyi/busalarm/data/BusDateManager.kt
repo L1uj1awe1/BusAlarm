@@ -1,6 +1,8 @@
 package com.readboyi.busalarm.data
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import com.readboyi.busalarm.data.cache.BusCacheManager
 import com.readboyi.busalarm.data.http.BusHttpManager
 import com.readboyi.busalarm.config.Constants
@@ -9,7 +11,7 @@ import com.readboyi.busalarm.data.bean.*
 /**
  * Created by liujiawei on 18-7-9.
  */
-class BusDateManager(val context: Context) : BusHttpManager.BusHttpRequestListener {
+class BusDateManager(val context: Context?) : BusHttpManager.BusHttpRequestListener {
 
     /** 判断是否存在缓存 */
     /** 判断缓存是否过期 */
@@ -22,9 +24,10 @@ class BusDateManager(val context: Context) : BusHttpManager.BusHttpRequestListen
         fun onRequestBusDirect(direct: ArrayList<BusInfoBean>)
     }
 
-    var mBusCacheManager: BusCacheManager? = null
-    var mBusHttpManager: BusHttpManager? = null
+    private var mBusCacheManager: BusCacheManager? = null
+    private var mBusHttpManager: BusHttpManager? = null
     var listener: RequestBusListener? = null
+    private val mHandler = Handler(Looper.getMainLooper())
 
     init {
         mBusCacheManager = BusCacheManager(context)
@@ -80,11 +83,15 @@ class BusDateManager(val context: Context) : BusHttpManager.BusHttpRequestListen
     }
 
     override fun onBusDirection(bean: BusDirectBean) {
-        listener?.onRequestBusDirect(bean.data)
+        mHandler.post {
+            listener?.onRequestBusDirect(bean.data)
+        }
     }
 
     override fun onBusStations(bean: BusStationsBean) {
-        listener?.onRequestBusStation(bean.data)
+        mHandler.post {
+            listener?.onRequestBusStation(bean.data)
+        }
     }
 
     override fun onBusStatus(bean: BusStatusBean) {
