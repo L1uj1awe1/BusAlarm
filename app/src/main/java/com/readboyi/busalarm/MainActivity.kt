@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
 
     private fun initMenu() {
         menu = SpringMenu(this, R.layout.menu)
-        menu?.setMenuWidth((300 * BusApp.INSTANCE.density).toInt())
+//        menu?.setMenuWidth((300 * BusApp.INSTANCE.density).toInt())
         menu?.setMenuSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20.0, 3.0))
         menu?.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20.0, 5.0))
         menu?.setFadeEnable(false)
