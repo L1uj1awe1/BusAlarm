@@ -1,18 +1,10 @@
 package com.readboyi.busalarm
 
 import android.content.Intent
-import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.annotation.Nullable
-import android.support.v4.view.GravityCompat
-import android.util.Log
-import android.view.View
-import com.github.mzule.fantasyslide.SimpleFantasyListener
 import com.pgyersdk.crash.PgyCrashManager
 import com.readboyi.busalarm.controller.fragment.BusListenerListFragment
-import kotlinx.android.synthetic.main.activity_main.*
-import android.widget.TextView
 import com.readboyi.busalarm.config.Constants
 import com.readboyi.busalarm.controller.activity.SecondActivity
 import com.readboyi.busalarm.wedget.BusActionBar
@@ -20,6 +12,7 @@ import kotlinx.android.synthetic.main.view_action_bar.*
 import com.jpeng.jpspringmenu.SpringMenu
 import android.view.MotionEvent
 import com.facebook.rebound.SpringConfig
+import com.jpeng.jpspringmenu.MenuListener
 import kotlinx.android.synthetic.main.menu.*
 
 class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
@@ -53,6 +46,18 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
         menu?.setFadeEnable(false)
         menu?.setDragOffset(0.4f)
         menu?.setDirection(0)
+        menu?.setMenuListener(object : MenuListener{
+            override fun onMenuClose() {
+                btn_bar_menu.setBackgroundResource(R.drawable.menu)
+            }
+
+            override fun onProgressUpdate(value: Float, bouncing: Boolean) {}
+
+            override fun onMenuOpen() {
+                btn_bar_menu.setBackgroundResource(R.drawable.back)
+            }
+
+        })
         tv_new_listener.setOnClickListener { toSecondActivity(Constants.ACTION_BAR_ADD_LESTENER) }
     }
 
@@ -82,6 +87,9 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
         intent.putExtra("type", type)
         startActivity(intent)
         overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left)
+        if (menu?.isOpened ?: false) {
+            menu?.closeMenu()
+        }
     }
 
     private fun initFragment() {
