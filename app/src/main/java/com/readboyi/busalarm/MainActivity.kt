@@ -44,11 +44,6 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
      * 初始化菜单
      */
     private fun initMenu() {
-        Picasso.with(this).apply {
-            if (!TextUtils.isEmpty(BusApp.INSTANCE.menuImageUrl)) {
-                load(BusApp.INSTANCE.menuImageUrl).into(root_menu)
-            }
-        }
         menu = SpringMenu(this, R.layout.menu)
 //        menu?.setMenuWidth((300 * BusApp.INSTANCE.density).toInt())
         menu?.setMenuSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20.0, 3.0))
@@ -68,6 +63,11 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
             }
 
         })
+        Picasso.with(this).apply {
+            if (!TextUtils.isEmpty(BusApp.INSTANCE.menuImageUrl)) {
+                load(BusApp.INSTANCE.menuImageUrl).into(root_menu)
+            }
+        }
         tv_new_listener.setOnClickListener { toSecondActivity(Constants.ACTION_BAR_ADD_LESTENER) }
     }
 
