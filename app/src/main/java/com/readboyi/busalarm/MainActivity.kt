@@ -38,19 +38,17 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
     private fun initView() {
         bus_action_bar.listener = this
         bus_action_bar.updateActionBarTitle(Constants.ACTION_BAR_MAIN)
-        Picasso.with(this).apply {
-            if (!TextUtils.isEmpty(BusApp.INSTANCE.menuImageUrl)) {
-                load(BusApp.INSTANCE.menuImageUrl).error(R.drawable.t).fit().into(menu_img)
-            } else {
-                load(R.drawable.t).error(R.drawable.t).fit().into(menu_img)
-            }
-        }
     }
 
     /**
      * 初始化菜单
      */
     private fun initMenu() {
+        Picasso.with(this).apply {
+            if (!TextUtils.isEmpty(BusApp.INSTANCE.menuImageUrl)) {
+                load(BusApp.INSTANCE.menuImageUrl).into(root_menu)
+            }
+        }
         menu = SpringMenu(this, R.layout.menu)
 //        menu?.setMenuWidth((300 * BusApp.INSTANCE.density).toInt())
         menu?.setMenuSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20.0, 3.0))
