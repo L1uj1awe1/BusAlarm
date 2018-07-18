@@ -3,6 +3,7 @@ package com.readboyi.busalarm
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.pgyersdk.crash.PgyCrashManager
 import com.readboyi.busalarm.controller.fragment.BusListenerListFragment
 import com.readboyi.busalarm.config.Constants
@@ -14,6 +15,7 @@ import android.view.MotionEvent
 import com.facebook.rebound.SpringConfig
 import com.jpeng.jpspringmenu.MenuListener
 import kotlinx.android.synthetic.main.menu.*
+import java.util.*
 
 class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
 
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
 //        menu?.setMenuWidth((300 * BusApp.INSTANCE.density).toInt())
         menu?.setMenuSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20.0, 3.0))
         menu?.setChildSpringConfig(SpringConfig.fromOrigamiTensionAndFriction(20.0, 5.0))
-        menu?.setFadeEnable(true)
+        menu?.setFadeEnable(false)
         menu?.setDragOffset(0.4f)
         menu?.setDirection(0)
         menu?.setMenuListener(object : MenuListener{
