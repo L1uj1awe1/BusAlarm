@@ -1,6 +1,7 @@
 package com.readboyi.busalarm.adapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +25,7 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
         val bean = list[position]
         holder.tvBusKey.text = bean.key
         holder.tvFromStation.text = bean.fromStation
-        holder.tvStation.text = "监听站点：${bean.station}"
+        holder.tvStation.text = bean.station
 
         holder.itemView.run {
             setOnClickListener {

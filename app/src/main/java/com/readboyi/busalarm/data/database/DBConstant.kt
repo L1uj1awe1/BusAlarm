@@ -2,6 +2,8 @@ package com.readboyi.busalarm.data.database
 
 /**
  * Created by liujiawei on 18-7-6.
+ *
+ * adb pull /data/data/com.readboyi.busalarm/databases/bus.db
  */
 object DBConstant {
 

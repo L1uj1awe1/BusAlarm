@@ -22,7 +22,10 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
     private var mStationLoopItems = ArrayList<String>()
     private var mDirects: ArrayList<BusInfoBean> = ArrayList()
     private var mStations: ArrayList<BusStationsListBean> = ArrayList()
+    private var mStationId = ""
     private var mDirectId = ""
+    private var mCurrentStation = ""
+    private var mCurrentDirect = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +55,7 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
         direct_loop.setListener { index ->
             mDirectId = StringUtils.getLineId(mDirectLoopItems[index], mDirects)
             tv_insert_direct.text = "方向：${mDirectLoopItems[index]}"
+            mCurrentDirect = mDirectLoopItems[index]
         }
     }
 
@@ -59,7 +63,9 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
         station_loop.setNotLoop()
         station_loop.setInitPosition(0)
         station_loop.setListener { index ->
+            mCurrentStation = mStationLoopItems[index]
             tv_insert_station.text = "监听：${mStationLoopItems[index]}"
+            mStationId = StringUtils.getStationId(mStationLoopItems[index], mStations)
         }
     }
 
@@ -72,7 +78,9 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
             Log.e("jiajia",it.Name)
         }
         station_loop.setItems(mStationLoopItems)
+        mCurrentStation = mStationLoopItems[0]
         tv_insert_station.text = "监听：${mStationLoopItems[0]}"
+        mStationId = StringUtils.getStationId(mStationLoopItems[0], mStations)
     }
 
     override fun onRequestBusDirect(direct: ArrayList<BusInfoBean>) {
@@ -85,6 +93,7 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
         direct_loop.setItems(mDirectLoopItems)
         mDirectId = StringUtils.getLineId(mDirectLoopItems[0], mDirects)
         tv_insert_direct.text = "方向：${mDirectLoopItems[0]}"
+        mCurrentDirect = mDirectLoopItems[0]
     }
 
     override fun onClick(v: View?) {
@@ -97,8 +106,10 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
                 } else if (direct_loop.visibility == View.VISIBLE) {
                     direct_loop.visibility = View.GONE
                     mBusDatdManager?.requestBusStation(mDirectId)
+                    btn_next.text = "确定"
                 } else {
-                    // todo 插入数据库 返回
+                    mBusDBManager?.insertListenStation(et_line.text.toString(), mCurrentStation, mCurrentDirect, mStationId)
+                    activity?.finish()
                 }
             }
         }

@@ -16,7 +16,7 @@ import java.util.ArrayList
 
 class BusListenerListFragment : Fragment() {
 
-    var mBusDBManager: BusDBManager? = null
+    private var mBusDBManager: BusDBManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -7,5 +7,6 @@ data class BusListenerBean (
         val key: String,
         val fromStation: String,
         val station: String,
+        val stationId: String,
         val status: Int
 )

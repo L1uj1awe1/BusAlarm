@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.view_action_bar.*
 class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
 
     var tmp: TextView? = null
+    var busListenerFragment: BusListenerListFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,8 +95,13 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
     }
 
     private fun initFragment() {
-        val busListenerFragment = BusListenerListFragment.newInstance()
+        busListenerFragment = BusListenerListFragment.newInstance()
         supportFragmentManager.beginTransaction().replace(R.id.fl_bus_listener_layout, busListenerFragment).commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        busListenerFragment?.notifyDataChange()
     }
 
     override fun onDestroy() {

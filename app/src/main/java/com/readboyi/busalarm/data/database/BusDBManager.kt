@@ -41,8 +41,9 @@ class BusDBManager(context: Context?) {
             val fromStation = c.getString(c.getColumnIndex(DBConstant.COLUMN_FROM_STATION))
             val station = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION))
             val status = c.getInt(c.getColumnIndex(DBConstant.COLUMN_STATUS))
+            val stationId = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION_ID))
 
-            val item = BusListenerBean(key, fromStation, station, status)
+            val item = BusListenerBean(key, fromStation, station, stationId, status)
             list.add(item)
         }
         c?.close()
@@ -55,11 +56,11 @@ class BusDBManager(context: Context?) {
      * @param station 监听站点
      * @param fromStation 监听站点所属方向
      */
-    fun insertListenStation(key: String, station: String, fromStation: String, status: Int = 0): Boolean{
+    fun insertListenStation(key: String, station: String, fromStation: String, stationId: String, status: Int = 1): Boolean{
         val lines = queryListenStations()
         var exist = false
         lines.forEach {
-            if(it.key == key && it.fromStation == fromStation && it.station == station){
+            if(it.stationId == stationId){
                 exist = true
                 return false
             }
@@ -69,6 +70,7 @@ class BusDBManager(context: Context?) {
             values.put(DBConstant.COLUMN_KEY, key)
             values.put(DBConstant.COLUMN_FROM_STATION, fromStation)
             values.put(DBConstant.COLUMN_STATION, station)
+            values.put(DBConstant.COLUMN_STATION_ID, stationId)
             values.put(DBConstant.COLUMN_STATUS, status)
             dbWrite?.insert(DBConstant.TABLE_BUS_LISTENER, null, values)
         }
