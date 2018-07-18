@@ -3,6 +3,7 @@ package com.readboyi.busalarm
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import com.pgyersdk.crash.PgyCrashManager
 import com.readboyi.busalarm.controller.fragment.BusListenerListFragment
@@ -14,8 +15,8 @@ import com.jpeng.jpspringmenu.SpringMenu
 import android.view.MotionEvent
 import com.facebook.rebound.SpringConfig
 import com.jpeng.jpspringmenu.MenuListener
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.menu.*
-import java.util.*
 
 class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
 
@@ -37,6 +38,13 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
     private fun initView() {
         bus_action_bar.listener = this
         bus_action_bar.updateActionBarTitle(Constants.ACTION_BAR_MAIN)
+        Picasso.with(this).apply {
+            if (!TextUtils.isEmpty(BusApp.INSTANCE.menuImageUrl)) {
+                load(BusApp.INSTANCE.menuImageUrl).error(R.drawable.t).fit().into(menu_img)
+            } else {
+                load(R.drawable.t).error(R.drawable.t).fit().into(menu_img)
+            }
+        }
     }
 
     /**

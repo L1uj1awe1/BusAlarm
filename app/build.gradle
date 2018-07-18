@@ -96,6 +96,9 @@ dependencies {
     // Log library
     implementation "com.orhanobut:logger:$logger_version"
 
+    // image load and cache library
+    implementation "com.squareup.picasso:picasso:$picasso_version"
+
     implementation 'com.weigan:loopView:0.1.2' // loop selector
     implementation 'com.jude:swipebackhelper:3.1.2' // swipe finish activity
     implementation 'com.jpeng:jpspringmenu:1.0.3' // left menu
