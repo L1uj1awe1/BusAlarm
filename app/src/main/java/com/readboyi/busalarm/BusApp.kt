@@ -13,10 +13,18 @@ class BusApp : Application() {
         lateinit var INSTANCE: BusApp
     }
 
+    var density: Float = 0.toFloat()
+
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
         Logger.addLogAdapter(AndroidLogAdapter())
+        getDisplayMetrics()
+    }
+
+    private fun getDisplayMetrics() {
+        val displayMetrics = resources.displayMetrics
+        density = displayMetrics.density
     }
 
 }

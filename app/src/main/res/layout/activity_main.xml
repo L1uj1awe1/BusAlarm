@@ -16,86 +16,12 @@
 
     </FrameLayout>
 
-
-    <com.github.mzule.fantasyslide.FantasyDrawerLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/drawerLayout"
+    <FrameLayout
+        android:id="@+id/fl_bus_listener_layout"
         android:layout_below="@+id/view_bus_action_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:id="@+id/fl_bus_listener_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            />
-
-        <com.github.mzule.fantasyslide.SideBar
-            android:id="@+id/leftSideBar"
-            android:layout_width="200dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:background="@color/theme_color"
-            app:maxTranslationX="45dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="50dp"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="2018年已过："
-                    android:textColor="@color/white"
-                    android:textSize="18sp"
-                    android:gravity="center"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:text="100天"
-                    android:textColor="@color/white"
-                    android:textSize="32sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-
-            <!-- 这里是 SideBar 的子视图-->
-            <TextView
-                android:id="@+id/tv_new_listener"
-                style="@style/MenuText"
-                android:drawableStart="@drawable/add"
-                android:drawablePadding="10dp"
-                android:text="新建提醒" />
-
-            <TextView
-                style="@style/MenuText"
-                android:drawableStart="@drawable/stastictis"
-                android:drawablePadding="10dp"
-                android:text="公交统计"/>
-
-            <TextView
-                style="@style/MenuText"
-                android:drawableStart="@drawable/tuwen"
-                android:drawablePadding="10dp"
-                android:text="今日鸡汤"/>
-
-            <TextView
-                style="@style/MenuText"
-                android:drawableStart="@drawable/setting"
-                android:drawablePadding="10dp"
-                android:text="应用设置"/>
-
-            <TextView
-                style="@style/MenuText"
-                android:drawableStart="@drawable/advice"
-                android:drawablePadding="10dp"
-                android:text="建议反馈"/>
-
-        </com.github.mzule.fantasyslide.SideBar>
-        <!-- 如果需要的话，可以添加右侧边栏-->
-    </com.github.mzule.fantasyslide.FantasyDrawerLayout>
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        />
 
 </RelativeLayout>
