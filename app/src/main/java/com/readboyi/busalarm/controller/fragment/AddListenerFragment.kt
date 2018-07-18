@@ -2,15 +2,16 @@ package com.readboyi.busalarm.controller.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.orhanobut.logger.Logger
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.data.BusDateManager
 import com.readboyi.busalarm.data.bean.BusInfoBean
 import com.readboyi.busalarm.data.bean.BusStationsListBean
 import com.readboyi.busalarm.data.database.BusDBManager
+import com.readboyi.busalarm.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_add_listener.*
 
 class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.RequestBusListener {
@@ -49,21 +50,29 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
         direct_loop.setNotLoop()
         direct_loop.setInitPosition(0)
         direct_loop.setListener { index ->
-            Logger.wtf(mDirectLoopItems[index])
+            mDirectId = StringUtils.getLineId(mDirectLoopItems[index], mDirects)
+            tv_insert_direct.text = "方向：${mDirectLoopItems[index]}"
         }
     }
 
     private fun initStationLoop() {
         station_loop.setNotLoop()
         station_loop.setInitPosition(0)
-        //        direct_loop.setItems(list)
         station_loop.setListener { index ->
-
+            tv_insert_station.text = "监听：${mStationLoopItems[index]}"
         }
     }
 
     override fun onRequestBusStation(station: ArrayList<BusStationsListBean>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mStations = station
+        station_loop.visibility = View.VISIBLE
+        mStationLoopItems.clear()
+        station.forEach {
+            mStationLoopItems.add(it.Name)
+            Log.e("jiajia",it.Name)
+        }
+        station_loop.setItems(mStationLoopItems)
+        tv_insert_station.text = "监听：${mStationLoopItems[0]}"
     }
 
     override fun onRequestBusDirect(direct: ArrayList<BusInfoBean>) {
@@ -74,6 +83,8 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
             mDirectLoopItems.add(it.FromStation + "-" + it.ToStation)
         }
         direct_loop.setItems(mDirectLoopItems)
+        mDirectId = StringUtils.getLineId(mDirectLoopItems[0], mDirects)
+        tv_insert_direct.text = "方向：${mDirectLoopItems[0]}"
     }
 
     override fun onClick(v: View?) {
@@ -82,6 +93,12 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
                 if (et_line.visibility == View.VISIBLE) {
                     et_line.visibility = View.GONE
                     mBusDatdManager?.requestBusDirect(et_line.text.toString())
+                    tv_insert_key.text = "线路：${et_line.text}"
+                } else if (direct_loop.visibility == View.VISIBLE) {
+                    direct_loop.visibility = View.GONE
+                    mBusDatdManager?.requestBusStation(mDirectId)
+                } else {
+                    // todo 插入数据库 返回
                 }
             }
         }

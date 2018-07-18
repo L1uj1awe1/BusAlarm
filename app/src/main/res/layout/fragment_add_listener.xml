@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/tv_insert_key"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -19,6 +20,7 @@
             android:text="线路：3A"
             android:textSize="24sp" />
         <TextView
+            android:id="@+id/tv_insert_direct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -28,6 +30,7 @@
             android:text="方向：唐家-明珠中"
             android:textSize="24sp" />
         <TextView
+            android:id="@+id/tv_insert_station"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -47,8 +50,7 @@
             android:id="@+id/rl_loop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
+            android:layout_margin="50dp"
             android:layout_centerInParent="true"
             android:layout_alignParentTop="true"
             android:layout_above="@+id/btn_next">
@@ -60,7 +62,7 @@
             <com.weigan.loopview.LoopView
                 android:visibility="gone"
                 android:id="@+id/direct_loop"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:awv_textsize="24"
                 app:awv_lineSpace="2"
@@ -68,7 +70,7 @@
             <com.weigan.loopview.LoopView
                 android:visibility="gone"
                 android:id="@+id/station_loop"
-                android:layout_width="200dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 app:awv_textsize="24"
                 app:awv_lineSpace="2"
@@ -81,6 +83,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="50dp"
             android:layout_centerHorizontal="true"
+            android:text="下一步"
             />
     </RelativeLayout>
 
