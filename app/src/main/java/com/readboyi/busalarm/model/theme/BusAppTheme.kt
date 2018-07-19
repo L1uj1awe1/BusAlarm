@@ -1,4 +1,4 @@
-package com.readboyi.busalarm.data.bean
+package com.readboyi.busalarm.model.theme
 
 /**
  * Created by liujiawei on 18-7-19.
