@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp">
+    android:layout_marginBottom="5dp"
+    android:background="@color/actionBar">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         >
         <TextView
             android:id="@+id/tv_bus_key"
@@ -20,6 +20,7 @@
             android:layout_marginEnd="15dp"
             android:gravity="center"
             android:textSize="32sp"
+            android:textColor="@color/busKey"
             />
         <TextView
             android:id="@+id/tv_from_station"
@@ -64,7 +65,6 @@
             android:layout_centerInParent="true"
             android:textSize="32sp"
             android:text="点击开启监听"
-            android:textColor="@color/black"
             />
     </RelativeLayout>
 </FrameLayout>

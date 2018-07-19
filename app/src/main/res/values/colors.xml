@@ -11,4 +11,10 @@
     <color name="shadow">#6c6868</color>
     <color name="theme_color">#009793</color>
     <color name="trans">#56000000</color>
+
+    <!-- theme -->
+    <color name="contentBackgroud">#D6E9ED</color>
+    <color name="busKey">#2EE4A3</color>
+    <color name="actionBar">#FFFFFF</color>
+    <color name="text">#2c2c2c</color>
 </resources>

@@ -53,21 +53,21 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
         menu?.setDirection(0)
         menu?.setMenuListener(object : MenuListener{
             override fun onMenuClose() {
-                btn_bar_menu.setBackgroundResource(R.drawable.menu)
+                btn_bar_menu.setBackgroundResource(R.drawable.menu_black)
             }
 
             override fun onProgressUpdate(value: Float, bouncing: Boolean) {}
 
             override fun onMenuOpen() {
-                btn_bar_menu.setBackgroundResource(R.drawable.back)
+                btn_bar_menu.setBackgroundResource(R.drawable.back_black)
             }
 
         })
-        Picasso.with(this).apply {
-            if (!TextUtils.isEmpty(BusApp.INSTANCE.menuImageUrl)) {
-                load(BusApp.INSTANCE.menuImageUrl).into(root_menu)
-            }
-        }
+//        Picasso.with(this).apply {
+//            if (!TextUtils.isEmpty(BusApp.INSTANCE.menuImageUrl)) {
+//                load(BusApp.INSTANCE.menuImageUrl).into(root_menu)
+//            }
+//        }
         tv_new_listener.setOnClickListener { toSecondActivity(Constants.ACTION_BAR_ADD_LESTENER) }
     }
 

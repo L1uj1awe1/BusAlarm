@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.readboyi.busalarm.MainActivity"
-    android:background="@color/bg_gray">
+    android:background="@color/contentBackgroud">
 
     <FrameLayout
         android:id="@+id/view_bus_action_bar"

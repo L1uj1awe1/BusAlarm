@@ -7,10 +7,10 @@
             <corners android:radius="5dp" />
             <gradient
                 android:angle="270"
-                android:centerColor="#eeeff3"
+                android:centerColor="@color/actionBar"
                 android:centerY="0.75"
-                android:endColor="#eeeff3"
-                android:startColor="#eeeff3" />
+                android:endColor="@color/actionBar"
+                android:startColor="@color/actionBar" />
         </shape>
     </item>
     <!--定义seekbar滑动条进度颜色-->
@@ -18,7 +18,7 @@
         <clip>
             <shape>
                 <corners android:radius="5dp"/>
-                <solid android:color="@color/theme_color"/>
+                <solid android:color="@color/busKey"/>
             </shape>
         </clip>
     </item>
