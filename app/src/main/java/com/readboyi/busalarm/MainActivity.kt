@@ -119,6 +119,7 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
     override fun onResume() {
         super.onResume()
         busListenerFragment?.notifyDataChange()
+        service?.updateListens()
     }
 
     override fun onDestroy() {

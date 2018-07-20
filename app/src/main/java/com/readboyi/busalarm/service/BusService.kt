@@ -14,16 +14,34 @@ import android.util.Log
 import com.readboyi.busalarm.MainActivity
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.config.Constants
+import com.readboyi.busalarm.data.bean.BusDirectBean
+import com.readboyi.busalarm.data.bean.BusListenerBean
+import com.readboyi.busalarm.data.bean.BusStationsBean
+import com.readboyi.busalarm.data.bean.BusStatusBean
+import com.readboyi.busalarm.data.database.BusDBManager
+import com.readboyi.busalarm.data.http.BusHttpManager
 import java.util.*
+import kotlin.collections.ArrayList
 
-class BusService : Service() {
+class BusService : Service(), BusHttpManager.BusHttpRequestListener {
 
     private var timer = Timer()
+    private var listens: ArrayList<BusListenerBean> = ArrayList()
+    private var mBusDBManager: BusDBManager? = null
+    private var mBusHttpManager: BusHttpManager? = null
 
     override fun onBind(intent: Intent): IBinder? {
-        setNotification()
         Log.e("BusService","onBind")
+        init()
+        showNotification()
         return BusBinder()
+    }
+
+    private fun init () {
+        mBusHttpManager = BusHttpManager(this)
+        mBusHttpManager?.listener = this
+        mBusDBManager = BusDBManager(this)
+        listens = mBusDBManager?.queryListenStations() ?: ArrayList()
     }
 
     override fun onCreate() {
@@ -31,7 +49,40 @@ class BusService : Service() {
         Log.e("BusService","onCreate")
     }
 
-    fun setNotification() {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    override fun onBusDirection(bean: BusDirectBean) {}
+    override fun onBusStations(bean: BusStationsBean) {}
+    override fun onBusStatus(bean: BusStatusBean) {
+        bean.data.forEach {
+            Log.e("BusService",it.CurrentStation)
+        }
+    }
+
+    internal inner class BusBinder: Binder() {
+
+        fun onStartListener() {
+            Log.e("BusService","onStartListener")
+            Thread(Runnable {
+                timer.schedule(object : TimerTask() {
+                    override fun run() {
+                        Log.e("BusService","timer")
+                        listens.forEach {
+                            mBusHttpManager?.requestBusStatus(it.key, it.fromStation)
+                        }
+                    }
+                }, Constants.REQUEST_LISTEN_DELAY, Constants.REQUEST_LISTEN_DELAY)
+            }).start()
+        }
+
+        fun onUpdateListens() {
+            listens = mBusDBManager?.queryListenStations() ?: ArrayList()
+        }
+    }
+
+    private fun showNotification() {
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val builder = Notification.Builder(this)
         builder.setContentText("正在监听公交，点击查看详情")//左下角信息
@@ -50,26 +101,15 @@ class BusService : Service() {
         nm.notify(1, notification)
     }
 
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
+    private fun cancelNotification() {
+        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        nm.cancelAll()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        cancelNotification()
+        timer.cancel()
         Log.e("BusService","onDestroy")
-    }
-
-    internal inner class BusBinder: Binder() {
-
-        fun onStartListener() {
-            Log.e("BusService","onStartListener")
-            Thread(Runnable {
-                timer.schedule(object : TimerTask() {
-                    override fun run() {
-                        Log.e("BusService","timer")
-                    }
-                }, Constants.REQUEST_LISTEN_DELAY, Constants.REQUEST_LISTEN_DELAY)
-            }).start()
-        }
     }
 }

@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.readboyi.busalarm.data.bean.BusListenerBean
+import java.util.*
 
 class BusDBManager(context: Context?) {
 
@@ -36,17 +37,23 @@ class BusDBManager(context: Context?) {
     fun queryListenStations(): java.util.ArrayList<BusListenerBean> {
         val list: ArrayList<BusListenerBean> = ArrayList()
         val c = dbRead?.query(DBConstant.TABLE_BUS_LISTENER, null, null, null, null, null, null)
-        while (c != null && c.moveToNext()){
-            val key = c.getString(c.getColumnIndex(DBConstant.COLUMN_KEY))
-            val fromStation = c.getString(c.getColumnIndex(DBConstant.COLUMN_FROM_STATION))
-            val station = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION))
-            val status = c.getInt(c.getColumnIndex(DBConstant.COLUMN_STATUS))
-            val stationId = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION_ID))
+        try {
+            while (c != null && c.moveToNext()){
+                val key = c.getString(c.getColumnIndex(DBConstant.COLUMN_KEY))
+                val fromStation = c.getString(c.getColumnIndex(DBConstant.COLUMN_FROM_STATION)).split("-")[0]
+                val station = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION))
+                val status = c.getInt(c.getColumnIndex(DBConstant.COLUMN_STATUS))
+                val stationId = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION_ID))
 
-            val item = BusListenerBean(key, fromStation, station, stationId, status)
-            list.add(item)
+                val item = BusListenerBean(key, fromStation, station, stationId, status)
+                list.add(item)
+            }
+            c?.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            c?.close()
+            return list
         }
-        c?.close()
         return list
     }
 
@@ -67,7 +74,7 @@ class BusDBManager(context: Context?) {
         }
         if(!exist){
             val values = ContentValues()
-            values.put(DBConstant.COLUMN_KEY, key)
+            values.put(DBConstant.COLUMN_KEY, key.toUpperCase(Locale.CHINA))
             values.put(DBConstant.COLUMN_FROM_STATION, fromStation)
             values.put(DBConstant.COLUMN_STATION, station)
             values.put(DBConstant.COLUMN_STATION_ID, stationId)

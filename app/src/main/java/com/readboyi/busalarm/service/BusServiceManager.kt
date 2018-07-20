@@ -18,6 +18,10 @@ class BusServiceManager(private val context: Context) {
         context.bindService(bindIntent, connection, Context.BIND_AUTO_CREATE)
     }
 
+    fun updateListens() {
+        mBusBinder?.onUpdateListens()
+    }
+
     fun unbindService(){
         context.unbindService(connection)
     }
