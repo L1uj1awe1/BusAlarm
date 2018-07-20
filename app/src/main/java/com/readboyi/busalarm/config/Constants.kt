@@ -8,4 +8,6 @@ object Constants {
 
     val ACTION_BAR_MAIN = 1
     val ACTION_BAR_ADD_LESTENER = 2
+
+    val REQUEST_LISTEN_DELAY: Long = 5000
 }

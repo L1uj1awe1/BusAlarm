@@ -9,11 +9,16 @@ import android.os.IBinder
 import com.orhanobut.logger.Logger
 import android.app.PendingIntent
 import android.content.Context
+import android.os.Message
 import android.util.Log
 import com.readboyi.busalarm.MainActivity
 import com.readboyi.busalarm.R
+import com.readboyi.busalarm.config.Constants
+import java.util.*
 
 class BusService : Service() {
+
+    private var timer = Timer()
 
     override fun onBind(intent: Intent): IBinder? {
         setNotification()
@@ -59,7 +64,11 @@ class BusService : Service() {
         fun onStartListener() {
             Log.e("BusService","onStartListener")
             Thread(Runnable {
-
+                timer.schedule(object : TimerTask() {
+                    override fun run() {
+                        Log.e("BusService","timer")
+                    }
+                }, Constants.REQUEST_LISTEN_DELAY, Constants.REQUEST_LISTEN_DELAY)
             }).start()
         }
     }
