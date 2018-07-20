@@ -39,13 +39,14 @@ class BusDBManager(context: Context?) {
         val c = dbRead?.query(DBConstant.TABLE_BUS_LISTENER, null, null, null, null, null, null)
         try {
             while (c != null && c.moveToNext()){
+                val id = c.getString(c.getColumnIndex(DBConstant.COLUMN_ID))
                 val key = c.getString(c.getColumnIndex(DBConstant.COLUMN_KEY))
                 val fromStation = c.getString(c.getColumnIndex(DBConstant.COLUMN_FROM_STATION)).split("-")[0]
                 val station = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION))
                 val status = c.getInt(c.getColumnIndex(DBConstant.COLUMN_STATUS))
                 val stationId = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION_ID))
 
-                val item = BusListenerBean(key, fromStation, station, stationId, status)
+                val item = BusListenerBean(id, key, fromStation, station, stationId, status)
                 list.add(item)
             }
             c?.close()
@@ -59,11 +60,12 @@ class BusDBManager(context: Context?) {
 
     /**
      * @aim 新增监听列表项
+     * @param id 线路ID
      * @param buslineId 线路
      * @param station 监听站点
      * @param fromStation 监听站点所属方向
      */
-    fun insertListenStation(key: String, station: String, fromStation: String, stationId: String, status: Int = 1): Boolean{
+    fun insertListenStation(id: String, key: String, station: String, fromStation: String, stationId: String, status: Int = 1): Boolean{
         val lines = queryListenStations()
         var exist = false
         lines.forEach {
@@ -74,6 +76,7 @@ class BusDBManager(context: Context?) {
         }
         if(!exist){
             val values = ContentValues()
+            values.put(DBConstant.COLUMN_ID, id)
             values.put(DBConstant.COLUMN_KEY, key.toUpperCase(Locale.CHINA))
             values.put(DBConstant.COLUMN_FROM_STATION, fromStation)
             values.put(DBConstant.COLUMN_STATION, station)

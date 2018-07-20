@@ -108,7 +108,7 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
                     mBusDatdManager?.requestBusStation(mDirectId)
                     btn_next.text = "确定"
                 } else {
-                    mBusDBManager?.insertListenStation(et_line.text.toString(), mCurrentStation, mCurrentDirect, mStationId)
+                    mBusDBManager?.insertListenStation(mDirectId, et_line.text.toString(), mCurrentStation, mCurrentDirect, mStationId)
                     activity?.finish()
                 }
             }
