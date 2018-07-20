@@ -55,9 +55,9 @@ class BusService : Service(), BusHttpManager.BusHttpRequestListener {
 
     override fun onBusDirection(bean: BusDirectBean) {}
     override fun onBusStations(bean: BusStationsBean) {}
-    override fun onBusStatus(id: String, bean: BusStatusBean, station: String) {
+    override fun onBusStatus(id: String, key: String, bean: BusStatusBean, station: String) {
         bean.data.forEach {
-            Log.e("BusService",it.CurrentStation + "    " + station + "     "+id)
+            Log.e("BusService",key +"   "+ it.CurrentStation + "    " + station + "     "+id)
         }
     }
 
@@ -68,7 +68,6 @@ class BusService : Service(), BusHttpManager.BusHttpRequestListener {
             Thread(Runnable {
                 timer.schedule(object : TimerTask() {
                     override fun run() {
-                        Log.e("BusService","timer")
                         listens.forEach {
                             mBusHttpManager?.requestBusStatus(it.id, it.key, it.fromStation, it.station)
                         }

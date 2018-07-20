@@ -85,7 +85,7 @@ class BusHttpManager(context: Context?) {
                                 it.printStackTrace()
                             },
                             onNext = {
-                                listener?.onBusStatus(id, it, station)
+                                listener?.onBusStatus(id, key, it, station)
                             }
                     )
         } catch (e: Exception) {
@@ -101,7 +101,7 @@ class BusHttpManager(context: Context?) {
     interface BusHttpRequestListener {
         fun onBusDirection(bean: BusDirectBean)
         fun onBusStations(bean: BusStationsBean)
-        fun onBusStatus(id: String, bean: BusStatusBean, station: String)
+        fun onBusStatus(id: String, key: String, bean: BusStatusBean, station: String)
     }
 
 }

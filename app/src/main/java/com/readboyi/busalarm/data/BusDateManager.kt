@@ -94,7 +94,7 @@ class BusDateManager(val context: Context?) : BusHttpManager.BusHttpRequestListe
         }
     }
 
-    override fun onBusStatus(id: String, bean: BusStatusBean, station: String) {
+    override fun onBusStatus(id: String, key: String, bean: BusStatusBean, station: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
