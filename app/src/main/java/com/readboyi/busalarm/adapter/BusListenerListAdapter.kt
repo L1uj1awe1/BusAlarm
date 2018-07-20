@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.adapter_bus_listener.view.*
  */
 class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHolder>() {
 
-    private var mBusDBManager: BusDBManager? = null
+    var mBusDBManager: BusDBManager? = null
     var list: ArrayList<BusListenerBean> = arrayListOf()
 
     override fun onBindViewHolder(holder: RedPacketHolder, position: Int) {

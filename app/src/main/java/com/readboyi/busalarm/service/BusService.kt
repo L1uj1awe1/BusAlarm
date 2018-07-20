@@ -9,19 +9,21 @@ import android.os.IBinder
 import com.orhanobut.logger.Logger
 import android.app.PendingIntent
 import android.content.Context
+import android.util.Log
 import com.readboyi.busalarm.MainActivity
 import com.readboyi.busalarm.R
-
 
 class BusService : Service() {
 
     override fun onBind(intent: Intent): IBinder? {
-        throw UnsupportedOperationException("Not yet implemented")
+        setNotification()
+        Log.e("BusService","onBind")
+        return BusBinder()
     }
 
     override fun onCreate() {
         super.onCreate()
-        setNotification()
+        Log.e("BusService","onCreate")
     }
 
     fun setNotification() {
@@ -49,18 +51,16 @@ class BusService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.e("BusService","onDestroy")
     }
 
-    inner class BusBinder: Binder() {
+    internal inner class BusBinder: Binder() {
 
         fun onStartListener() {
+            Log.e("BusService","onStartListener")
             Thread(Runnable {
-                Logger.wtf("onStartListener")
-            }).start()
-        }
 
-        fun onStopListener() {
-            Logger.wtf("onStopListener")
+            }).start()
         }
     }
 }

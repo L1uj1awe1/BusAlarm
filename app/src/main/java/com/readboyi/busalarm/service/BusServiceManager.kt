@@ -9,7 +9,7 @@ import android.os.IBinder
 /**
  * Created by liujiawei on 18-7-20.
  */
-class BusServiceManager(val context: Context) {
+class BusServiceManager(private val context: Context) {
 
     private var mBusBinder: BusService.BusBinder? = null
 
@@ -24,9 +24,7 @@ class BusServiceManager(val context: Context) {
 
     private val connection = object : ServiceConnection {
 
-        override fun onServiceDisconnected(name: ComponentName) {
-            mBusBinder?.onStopListener()
-        }
+        override fun onServiceDisconnected(name: ComponentName) {}
 
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
             mBusBinder = service as BusService.BusBinder

@@ -33,7 +33,7 @@
         <service
             android:name=".service.BusService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:label="BusAlarmService"></service>
     </application>
 
 </manifest>
