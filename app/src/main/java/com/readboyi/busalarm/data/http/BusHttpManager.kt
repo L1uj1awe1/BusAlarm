@@ -74,7 +74,7 @@ class BusHttpManager(context: Context?) {
     /**
      * 根据公交号码、起始站点，获取当前路线车辆到达状况
      */
-    fun requestBusStatus (id: String, key: String, fromStation: String) {
+    fun requestBusStatus (id: String, key: String, fromStation: String, station: String) {
         try {
             BusApi.SERVER.getBusStatusByLine(key, fromStation, System.currentTimeMillis())
                     .doOnSubscribe {}
@@ -85,7 +85,7 @@ class BusHttpManager(context: Context?) {
                                 it.printStackTrace()
                             },
                             onNext = {
-                                listener?.onBusStatus(id, it)
+                                listener?.onBusStatus(id, it, station)
                             }
                     )
         } catch (e: Exception) {
@@ -101,7 +101,7 @@ class BusHttpManager(context: Context?) {
     interface BusHttpRequestListener {
         fun onBusDirection(bean: BusDirectBean)
         fun onBusStations(bean: BusStationsBean)
-        fun onBusStatus(id: String, bean: BusStatusBean)
+        fun onBusStatus(id: String, bean: BusStatusBean, station: String)
     }
 
 }
