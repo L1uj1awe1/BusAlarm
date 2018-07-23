@@ -75,7 +75,6 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
         mStationLoopItems.clear()
         station.forEach {
             mStationLoopItems.add(it.Name)
-            Log.e("jiajia",it.Name)
         }
         station_loop.setItems(mStationLoopItems)
         mCurrentStation = mStationLoopItems[0]

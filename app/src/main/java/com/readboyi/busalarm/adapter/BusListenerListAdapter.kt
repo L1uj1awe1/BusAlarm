@@ -29,7 +29,7 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
 
         holder.itemView.run {
             setOnClickListener {
-                list = mBusDBManager?.updateListenLine(bean) ?: arrayListOf()
+                list = mBusDBManager?.updateListenLine(bean.id, bean.station, bean.status) ?: arrayListOf()
                 notifyDataSetChanged()
             }
             if (bean.status == 0) {

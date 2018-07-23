@@ -14,6 +14,7 @@ import android.util.Log
 import com.readboyi.busalarm.MainActivity
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.config.Constants
+import com.readboyi.busalarm.controller.activity.TipActivity
 import com.readboyi.busalarm.data.bean.BusDirectBean
 import com.readboyi.busalarm.data.bean.BusListenerBean
 import com.readboyi.busalarm.data.bean.BusStationsBean
@@ -22,6 +23,7 @@ import com.readboyi.busalarm.data.database.BusDBManager
 import com.readboyi.busalarm.data.http.BusHttpManager
 import java.util.*
 import kotlin.collections.ArrayList
+import android.content.ComponentName
 
 class BusService : Service(), BusHttpManager.BusHttpRequestListener {
 
@@ -41,7 +43,7 @@ class BusService : Service(), BusHttpManager.BusHttpRequestListener {
         mBusHttpManager = BusHttpManager(this)
         mBusHttpManager?.listener = this
         mBusDBManager = BusDBManager(this)
-        listens = mBusDBManager?.queryListenStations() ?: ArrayList()
+        listens = mBusDBManager?.queryListenServiceStations() ?: ArrayList()
     }
 
     override fun onCreate() {
@@ -57,7 +59,17 @@ class BusService : Service(), BusHttpManager.BusHttpRequestListener {
     override fun onBusStations(bean: BusStationsBean) {}
     override fun onBusStatus(id: String, key: String, bean: BusStatusBean, station: String) {
         bean.data.forEach {
-            Log.e("BusService",key +"   "+ it.CurrentStation + "    " + station + "     "+id)
+            if (station == it.CurrentStation) {
+                val intent = Intent(this, TipActivity::class.java)
+                intent.putExtra("id",id)
+                intent.putExtra("key",key)
+                intent.putExtra("station",station)
+//                val cn = ComponentName("com.readboyi.busalarm.controller.activity",
+//                        "com.readboyi.busalarm.controller.activity.TipActivity")
+//                intent.component = cn
+//                intent.action = "android.intent.action.TIP"
+                startActivity(intent)
+            }
         }
     }
 
@@ -77,7 +89,7 @@ class BusService : Service(), BusHttpManager.BusHttpRequestListener {
         }
 
         fun onUpdateListens() {
-            listens = mBusDBManager?.queryListenStations() ?: ArrayList()
+            listens = mBusDBManager?.queryListenServiceStations() ?: ArrayList()
         }
     }
 

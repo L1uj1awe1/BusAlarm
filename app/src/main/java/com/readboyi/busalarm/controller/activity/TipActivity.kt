@@ -9,15 +9,17 @@ import android.text.TextUtils
 import android.view.View
 import com.readboyi.busalarm.BusApp
 import com.readboyi.busalarm.R
+import com.readboyi.busalarm.data.bean.BusListenerBean
+import com.readboyi.busalarm.data.database.BusDBManager
 import com.readboyi.busalarm.utils.CommonUtils
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_tip.*
 
 class TipActivity : AppCompatActivity(), View.OnClickListener {
 
-
     private var welcomeMp: MediaPlayer? = null
     private var vibrator: Vibrator? = null
+    private var mBusDBManager: BusDBManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +28,10 @@ class TipActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun init() {
+        mBusDBManager = BusDBManager(this)
         CommonUtils.wakeAndUnlock(this)
         playWelcomeSound()
+        setTipText()
         btn_cancel.setOnClickListener(this)
         btn_continue.setOnClickListener(this)
         Picasso.with(this).apply {
@@ -51,14 +55,20 @@ class TipActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setTipText(){
-        tv_tip_key.text = ""
-        tv_tip_station.text = ""
+        tv_tip_key.text = intent.getStringExtra("key")
+        tv_tip_station.text = intent.getStringExtra("station")
     }
 
     override fun onClick(v: View?) {
         when(v) {
-            btn_cancel -> {}
-            btn_continue -> {}
+            btn_cancel -> {
+                mBusDBManager?.updateListenLine(
+                        intent.getStringExtra("id"),
+                        intent.getStringExtra("station"),
+                        1)
+                finish()
+            }
+            btn_continue -> finish()
         }
     }
 

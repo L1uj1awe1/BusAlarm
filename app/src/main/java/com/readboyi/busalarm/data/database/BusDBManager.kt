@@ -59,6 +59,35 @@ class BusDBManager(context: Context?) {
     }
 
     /**
+     * @aim 获取服务监听列表项
+     */
+    fun queryListenServiceStations(): java.util.ArrayList<BusListenerBean> {
+        val list: ArrayList<BusListenerBean> = ArrayList()
+        val c = dbRead?.query(DBConstant.TABLE_BUS_LISTENER, null, null, null, null, null, null)
+        try {
+            while (c != null && c.moveToNext()){
+                val id = c.getString(c.getColumnIndex(DBConstant.COLUMN_ID))
+                val key = c.getString(c.getColumnIndex(DBConstant.COLUMN_KEY))
+                val fromStation = c.getString(c.getColumnIndex(DBConstant.COLUMN_FROM_STATION)).split("-")[0]
+                val station = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION))
+                val status = c.getInt(c.getColumnIndex(DBConstant.COLUMN_STATUS))
+                val stationId = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION_ID))
+
+                val item = BusListenerBean(id, key, fromStation, station, stationId, status)
+                if (status == 1) {
+                    list.add(item)
+                }
+            }
+            c?.close()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            c?.close()
+            return list
+        }
+        return list
+    }
+
+    /**
      * @aim 新增监听列表项
      * @param id 线路ID
      * @param buslineId 线路
@@ -96,16 +125,18 @@ class BusDBManager(context: Context?) {
                 ,arrayOf(key,fromStation,station))
     }
 
+
     /**
      * 更新监听状态
      */
-    fun updateListenLine(bean: BusListenerBean): java.util.ArrayList<BusListenerBean>{
+    fun updateListenLine(id: String, station: String, status: Int): java.util.ArrayList<BusListenerBean>{
         val values = ContentValues()
-        val status = if (bean.status == 0) 1 else 0
-        values.put(DBConstant.COLUMN_STATUS, status)
+        val _status = if (status == 0) 1 else 0
+        values.put(DBConstant.COLUMN_STATUS, _status)
+
         dbWrite?.update(DBConstant.TABLE_BUS_LISTENER
-                , values, "${DBConstant.COLUMN_KEY} = ? and ${DBConstant.COLUMN_FROM_STATION} = ? and ${DBConstant.COLUMN_STATION} = ?"
-                ,arrayOf(bean.key,bean.fromStation,bean.station))
+                , values, "${DBConstant.COLUMN_ID} = ? and ${DBConstant.COLUMN_STATION} = ?"
+                ,arrayOf(id, station))
         return queryListenStations()
     }
 
