@@ -66,6 +66,7 @@ class TipActivity : AppCompatActivity(), View.OnClickListener {
                         intent.getStringExtra("id"),
                         intent.getStringExtra("station"),
                         1)
+                BusApp.INSTANCE.service?.updateListens()
                 finish()
             }
             btn_continue -> finish()
