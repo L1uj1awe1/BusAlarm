@@ -21,7 +21,9 @@
             android:name="PGYER_APPID"
             android:value="5d793b948b5348c6dfd7891ceabad124" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,7 +35,12 @@
         <service
             android:name=".service.BusService"
             android:enabled="true"
-            android:label="BusAlarmService"></service>
+            android:label="BusAlarmService" />
+
+        <activity android:name=".controller.activity.TipActivity"
+            android:launchMode="singleTask">
+
+        </activity>
     </application>
 
 </manifest>
