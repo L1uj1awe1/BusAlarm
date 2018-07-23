@@ -3,9 +3,6 @@ package com.readboyi.busalarm
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
-import com.pgyersdk.crash.PgyCrashManager
 import com.readboyi.busalarm.controller.fragment.BusListenerListFragment
 import com.readboyi.busalarm.config.Constants
 import com.readboyi.busalarm.controller.activity.SecondActivity
@@ -15,8 +12,6 @@ import com.jpeng.jpspringmenu.SpringMenu
 import android.view.MotionEvent
 import com.facebook.rebound.SpringConfig
 import com.jpeng.jpspringmenu.MenuListener
-import com.readboyi.busalarm.service.BusServiceManager
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.menu.*
 
 class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
@@ -24,18 +19,12 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
     private var busListenerFragment: BusListenerListFragment? = null
     private var menu: SpringMenu? = null
 
-    private var service: BusServiceManager? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        PgyCrashManager.register(this)
         initMenu()
         initFragment()
         initView()
-
-        service = BusServiceManager(this)
-        service?.bindService()
     }
 
     /**
@@ -119,12 +108,9 @@ class MainActivity : AppCompatActivity(), BusActionBar.BusActionBarListener {
     override fun onResume() {
         super.onResume()
         busListenerFragment?.notifyDataChange()
-        service?.updateListens()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        PgyCrashManager.unregister()
-        service?.unbindService()
     }
 }

@@ -3,6 +3,8 @@ package com.readboyi.busalarm
 import android.app.Application
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import com.pgyersdk.crash.PgyCrashManager
+import com.readboyi.busalarm.service.BusServiceManager
 import java.util.*
 
 /**
@@ -16,13 +18,26 @@ class BusApp : Application() {
 
     var density: Float = 0.toFloat()
     var menuImageUrl: String = ""
+    private var service: BusServiceManager? = null
 
     override fun onCreate() {
         super.onCreate()
+
         INSTANCE = this
+
+        PgyCrashManager.register(this)
         Logger.addLogAdapter(AndroidLogAdapter())
         getDisplayMetrics()
         getMenuImage()
+
+        service = BusServiceManager(this)
+        service?.bindService()
+    }
+
+    override fun onTerminate() {
+        super.onTerminate()
+        service?.unbindService()
+        PgyCrashManager.unregister()
     }
 
     private fun getDisplayMetrics() {

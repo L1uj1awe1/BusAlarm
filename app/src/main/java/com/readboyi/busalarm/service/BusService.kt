@@ -60,14 +60,11 @@ class BusService : Service(), BusHttpManager.BusHttpRequestListener {
     override fun onBusStatus(id: String, key: String, bean: BusStatusBean, station: String) {
         bean.data.forEach {
             if (station == it.CurrentStation) {
-                val intent = Intent(this, TipActivity::class.java)
+                val intent = Intent()
                 intent.putExtra("id",id)
                 intent.putExtra("key",key)
                 intent.putExtra("station",station)
-//                val cn = ComponentName("com.readboyi.busalarm.controller.activity",
-//                        "com.readboyi.busalarm.controller.activity.TipActivity")
-//                intent.component = cn
-//                intent.action = "android.intent.action.TIP"
+                intent.action = "android.intent.action.TIP"
                 startActivity(intent)
             }
         }
