@@ -44,6 +44,16 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
 
     }
 
+    /**
+     * 华东删除
+     */
+    fun swipeDeleteItem(position: Int) {
+        if (position != -1) {
+            val bean = list[position]
+            mBusDBManager?.deleteListenLine(bean.key, bean.station, bean.fromStation)
+        }
+    }
+
     override fun getItemCount(): Int {
         return list.size
     }
