@@ -27,18 +27,18 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
         holder.tvFromStation.text = bean.fromStation
         holder.tvStation.text = bean.station
 
-        holder.itemView.run {
-            setOnClickListener {
-                list = mBusDBManager?.updateListenLine(bean.id, bean.station, bean.status) ?: arrayListOf()
-                notifyDataSetChanged()
-            }
-            if (bean.status == 0) {
-                holder.rlView.visibility = View.VISIBLE
-                holder.seekBar.progress = 0
-            } else {
-                holder.rlView.visibility = View.GONE
-            }
-        }
+//        holder.itemView.run {
+//            setOnClickListener {
+//                list = mBusDBManager?.updateListenLine(bean.id, bean.station, bean.status) ?: arrayListOf()
+//                notifyDataSetChanged()
+//            }
+//            if (bean.status == 0) {
+//                holder.rlView.visibility = View.VISIBLE
+//                holder.seekBar.progress = 0
+//            } else {
+//                holder.rlView.visibility = View.GONE
+//            }
+//        }
 
         holder.seekBar.setOnTouchListener{_, _ -> true}
 

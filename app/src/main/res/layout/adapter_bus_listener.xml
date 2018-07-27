@@ -4,7 +4,9 @@
     android:layout_height="80dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
-    android:background="@color/actionBar">
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@drawable/course_item_bg" >
 
     <RelativeLayout
         android:layout_width="match_parent"
