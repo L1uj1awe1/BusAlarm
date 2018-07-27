@@ -41,7 +41,7 @@ class BusDBManager(context: Context?) {
             while (c != null && c.moveToNext()){
                 val id = c.getString(c.getColumnIndex(DBConstant.COLUMN_ID))
                 val key = c.getString(c.getColumnIndex(DBConstant.COLUMN_KEY))
-                val fromStation = c.getString(c.getColumnIndex(DBConstant.COLUMN_FROM_STATION)).split("-")[0]
+                val fromStation = c.getString(c.getColumnIndex(DBConstant.COLUMN_FROM_STATION))
                 val station = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION))
                 val status = c.getInt(c.getColumnIndex(DBConstant.COLUMN_STATUS))
                 val stationId = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION_ID))
@@ -68,7 +68,7 @@ class BusDBManager(context: Context?) {
             while (c != null && c.moveToNext()){
                 val id = c.getString(c.getColumnIndex(DBConstant.COLUMN_ID))
                 val key = c.getString(c.getColumnIndex(DBConstant.COLUMN_KEY))
-                val fromStation = c.getString(c.getColumnIndex(DBConstant.COLUMN_FROM_STATION)).split("-")[0]
+                val fromStation = c.getString(c.getColumnIndex(DBConstant.COLUMN_FROM_STATION))
                 val station = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION))
                 val status = c.getInt(c.getColumnIndex(DBConstant.COLUMN_STATUS))
                 val stationId = c.getString(c.getColumnIndex(DBConstant.COLUMN_STATION_ID))

@@ -76,7 +76,7 @@ class BusHttpManager(context: Context?) {
      */
     fun requestBusStatus (id: String, key: String, fromStation: String, station: String) {
         try {
-            BusApi.SERVER.getBusStatusByLine(key, fromStation, System.currentTimeMillis())
+            BusApi.SERVER.getBusStatusByLine(key, fromStation.split("-")[0], System.currentTimeMillis())
                     .doOnSubscribe {}
                     .retry(2)
                     .subscribeOn(Schedulers.io())

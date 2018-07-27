@@ -26,7 +26,6 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
     override fun onBindViewHolder(holder: RedPacketHolder, position: Int) {
 
         val bean = list[position]
-        Log.e("jiajia","adapter " + bean.fromStation)
         holder.tvBusKey.text = bean.key
         holder.tvFromStation.text = bean.fromStation
         holder.tvStation.text = bean.station

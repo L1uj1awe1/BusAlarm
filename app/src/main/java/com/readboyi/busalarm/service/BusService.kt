@@ -58,7 +58,9 @@ class BusService : Service(), BusHttpManager.BusHttpRequestListener {
     override fun onBusDirection(bean: BusDirectBean) {}
     override fun onBusStations(bean: BusStationsBean) {}
     override fun onBusStatus(id: String, key: String, bean: BusStatusBean, station: String) {
+        Log.i("BusService","----------- $key ------------")
         bean.data.forEach {
+            Log.i("BusService","key: $key   station: ${it.CurrentStation}   listen: $station")
             if (station == it.CurrentStation) {
                 val intent = Intent()
                 intent.putExtra("id",id)
@@ -68,6 +70,7 @@ class BusService : Service(), BusHttpManager.BusHttpRequestListener {
                 startActivity(intent)
             }
         }
+        Log.i("BusService","----------- $key ------------")
     }
 
     internal inner class BusBinder: Binder() {
