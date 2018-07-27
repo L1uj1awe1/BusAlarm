@@ -102,7 +102,9 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
                     et_line.visibility = View.GONE
                     mBusDatdManager?.requestBusDirect(et_line.text.toString())
                     tv_insert_key.text = "线路：${et_line.text}"
+                    tv_insert_direct.visibility = View.VISIBLE
                 } else if (direct_loop.visibility == View.VISIBLE) {
+                    tv_insert_station.visibility = View.VISIBLE
                     direct_loop.visibility = View.GONE
                     mBusDatdManager?.requestBusStation(mDirectId)
                     btn_next.text = "确定"

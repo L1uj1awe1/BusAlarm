@@ -15,6 +15,12 @@
     <!-- theme -->
     <color name="contentBackgroud">#D6E9ED</color>
     <color name="busKey">#2EE4A3</color>
+    <color name="busKey_press">#83edc7</color>
     <color name="actionBar">#FFFFFF</color>
     <color name="text">#2c2c2c</color>
+
+    <color name="contentBackgroud_sun">#0F152F</color>
+    <color name="busKey_sun">#FA4865</color>
+    <color name="busKey_press_sun">#f2abb7</color>
+    <color name="actionBar_sun">#1F253D</color>
 </resources>
