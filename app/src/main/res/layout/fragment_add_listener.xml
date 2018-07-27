@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/contentBackgroud_sun">
+    android:background="@color/contentBackgroud">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                     android:layout_height="match_parent"
                     android:text="线路："
                     android:textSize="20sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/text"
                     android:gravity="center_vertical"/>
 
                 <EditText
@@ -42,8 +42,8 @@
                     android:background="@null"
                     android:gravity="center_vertical"
                     android:hint="请输入线路"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white"
+                    android:textColor="@color/text"
+                    android:textColorHint="@color/text"
                     android:textSize="20sp"/>
 
             </LinearLayout>
@@ -56,7 +56,7 @@
                 android:text="方向："
                 android:textSize="20sp"
                 android:gravity="center_vertical"
-                android:textColor="@color/white"/>
+                android:textColor="@color/text"/>
 
             <TextView
                 android:visibility="gone"
@@ -65,7 +65,7 @@
                 android:layout_height="70dp"
                 android:text="监听："
                 android:textSize="20sp"
-                android:textColor="@color/white"
+                android:textColor="@color/text"
                 android:gravity="center_vertical"/>
         </LinearLayout>
 
@@ -84,9 +84,9 @@
                 android:layout_height="match_parent"
                 app:awv_textsize="24"
                 app:awv_lineSpace="2"
-                app:awv_outerTextColor="@color/white"
-                app:awv_centerTextColor="@color/busKey_sun"
-                app:awv_dividerTextColor="@color/busKey_sun"
+                app:awv_outerTextColor="@color/text"
+                app:awv_centerTextColor="@color/busKey"
+                app:awv_dividerTextColor="@color/busKey"
                 />
 
             <com.weigan.loopview.LoopView
@@ -97,9 +97,9 @@
                 android:layout_height="match_parent"
                 app:awv_textsize="24"
                 app:awv_lineSpace="2"
-                app:awv_outerTextColor="@color/white"
-                app:awv_centerTextColor="@color/busKey_sun"
-                app:awv_dividerTextColor="@color/busKey_sun"
+                app:awv_outerTextColor="@color/text"
+                app:awv_centerTextColor="@color/busKey"
+                app:awv_dividerTextColor="@color/busKey"
                 />
 
         </RelativeLayout>

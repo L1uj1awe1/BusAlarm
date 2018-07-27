@@ -2,13 +2,13 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/busKey_press_sun" />
+            <solid android:color="@color/busKey_press" />
             <corners android:radius="24dp" />
         </shape>
     </item>
     <item>
         <shape>
-            <solid android:color="@color/busKey_sun" />
+            <solid android:color="@color/busKey" />
             <corners android:radius="24dp" />
         </shape>
     </item>

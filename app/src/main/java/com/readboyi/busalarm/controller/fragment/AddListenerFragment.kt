@@ -107,7 +107,7 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
                     tv_insert_station.visibility = View.VISIBLE
                     direct_loop.visibility = View.GONE
                     mBusDatdManager?.requestBusStation(mDirectId)
-                    btn_next.text = "确定"
+                    btn_next.text = "确 定"
                 } else {
                     mBusDBManager?.insertListenStation(mDirectId, et_line.text.toString(), mCurrentStation, mCurrentDirect, mStationId)
                     activity?.finish()
