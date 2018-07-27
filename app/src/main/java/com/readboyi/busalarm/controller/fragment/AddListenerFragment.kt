@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.data.BusDateManager
 import com.readboyi.busalarm.data.bean.BusInfoBean
@@ -45,6 +46,7 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
         mBusDatdManager = BusDateManager(context)
         mBusDatdManager?.listener = this
         btn_next.setOnClickListener(this)
+        btn_pre.setOnClickListener(this)
         initDirectLoop()
         initStationLoop()
     }
@@ -99,18 +101,42 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
         when(v){
             btn_next -> {
                 if (et_line.visibility == View.VISIBLE) {
-                    et_line.visibility = View.GONE
-                    mBusDatdManager?.requestBusDirect(et_line.text.toString())
-                    tv_insert_key.text = "线路：${et_line.text}"
-                    tv_insert_direct.visibility = View.VISIBLE
+                    if (et_line.text.isEmpty()) {
+                        Toast.makeText(context, "线路请勿为空", Toast.LENGTH_LONG).show()
+                    } else {
+                        et_line.visibility = View.GONE
+                        mBusDatdManager?.requestBusDirect(et_line.text.toString())
+                        tv_insert_key.text = "线路：${et_line.text}"
+                        tv_insert_direct.visibility = View.VISIBLE
+                        btn_pre.visibility = View.VISIBLE
+                    }
                 } else if (direct_loop.visibility == View.VISIBLE) {
-                    tv_insert_station.visibility = View.VISIBLE
-                    direct_loop.visibility = View.GONE
-                    mBusDatdManager?.requestBusStation(mDirectId)
-                    btn_next.text = "确 定"
+                    if (mDirectLoopItems.size == 0) {
+                        Toast.makeText(context, "未查到线路信息，请尝试更换线路", Toast.LENGTH_LONG).show()
+                    } else {
+                        tv_insert_station.visibility = View.VISIBLE
+                        direct_loop.visibility = View.GONE
+                        mBusDatdManager?.requestBusStation(mDirectId)
+                        btn_next.text = "确 定"
+                    }
                 } else {
                     mBusDBManager?.insertListenStation(mDirectId, et_line.text.toString(), mCurrentStation, mCurrentDirect, mStationId)
                     activity?.finish()
+                }
+            }
+
+            btn_pre -> {
+                if (station_loop.visibility == View.VISIBLE) {
+                    tv_insert_station.visibility = View.GONE
+                    tv_insert_station.text = "监听："
+                    station_loop.visibility = View.GONE
+                    direct_loop.visibility = View.VISIBLE
+                    btn_next.text = "下一步"
+                } else if (direct_loop.visibility == View.VISIBLE) {
+                    direct_loop.visibility = View.GONE
+                    tv_insert_direct.text = "方向："
+                    tv_insert_direct.visibility = View.GONE
+                    btn_pre.visibility = View.GONE
                 }
             }
         }
