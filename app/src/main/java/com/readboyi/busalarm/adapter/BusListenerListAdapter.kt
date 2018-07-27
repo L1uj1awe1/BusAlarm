@@ -5,10 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
-import android.widget.SeekBar
-import android.widget.Switch
-import android.widget.TextView
+import android.widget.*
 import com.readboyi.busalarm.BusApp
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.data.bean.BusListenerBean
@@ -29,6 +26,10 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
         holder.tvBusKey.text = bean.key
         holder.tvFromStation.text = bean.fromStation
         holder.tvStation.text = bean.station
+
+        holder.itemView.setOnClickListener {
+            Log.e("jiajia", bean.station)
+        }
 
         holder.listen_switch.run {
             isChecked = bean.status == 1
