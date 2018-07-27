@@ -7,6 +7,9 @@
     <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
         android:id="@+id/list_bus_listener"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        android:layoutAnimation="@anim/list_layout_anim"/>
 
 </android.support.constraint.ConstraintLayout>

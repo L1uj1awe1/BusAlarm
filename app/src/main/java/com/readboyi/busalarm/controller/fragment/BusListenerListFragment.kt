@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,6 +54,7 @@ class BusListenerListFragment : Fragment() {
                 }
                 override fun onItemDismiss(srcHolder: RecyclerView.ViewHolder?) {
                     mAdapter?.swipeDeleteItem(srcHolder?.adapterPosition ?: -1)
+                    mAdapter?.notifyItemRemoved(srcHolder?.adapterPosition ?: -1)
                 }
             })
             layoutManager = LinearLayoutManager(context)
@@ -69,6 +71,7 @@ class BusListenerListFragment : Fragment() {
         (mAdapter as BusListenerAdapter).list = list
         (mAdapter as BusListenerAdapter).mBusDBManager = mBusDBManager
         mAdapter?.notifyDataSetChanged()
+        list_bus_listener.startLayoutAnimation()
     }
 
     override fun onDestroy() {

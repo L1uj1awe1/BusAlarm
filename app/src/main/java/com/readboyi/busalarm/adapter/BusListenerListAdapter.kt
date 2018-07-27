@@ -26,7 +26,7 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
     override fun onBindViewHolder(holder: RedPacketHolder, position: Int) {
 
         val bean = list[position]
-
+        Log.e("jiajia","adapter " + bean.fromStation)
         holder.tvBusKey.text = bean.key
         holder.tvFromStation.text = bean.fromStation
         holder.tvStation.text = bean.station
@@ -46,7 +46,9 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
     fun swipeDeleteItem(position: Int) {
         if (position != -1) {
             val bean = list[position]
-            mBusDBManager?.deleteListenLine(bean.key, bean.station, bean.fromStation)
+            mBusDBManager?.deleteListenLine(bean.id, bean.stationId)
+            BusApp.INSTANCE.service?.updateListens()
+            list = mBusDBManager?.queryListenStations() ?: arrayListOf()
         }
     }
 

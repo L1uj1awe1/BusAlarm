@@ -119,10 +119,10 @@ class BusDBManager(context: Context?) {
     /**
      * 删除监听线路
      */
-    fun deleteListenLine(key: String,station: String, fromStation: String){
+    fun deleteListenLine(id: String,stationId: String){
         dbWrite?.delete(DBConstant.TABLE_BUS_LISTENER
-                ,"${DBConstant.COLUMN_KEY} = ? and ${DBConstant.COLUMN_FROM_STATION} = ? and ${DBConstant.COLUMN_STATION} = ?"
-                ,arrayOf(key,fromStation,station))
+                ,"${DBConstant.COLUMN_ID} = ? and ${DBConstant.COLUMN_STATION_ID} = ?"
+                ,arrayOf(id, stationId))
     }
 
 

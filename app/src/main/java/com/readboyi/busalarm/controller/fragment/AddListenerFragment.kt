@@ -122,6 +122,7 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
                         btn_next.text = "确 定"
                     }
                 } else {
+                    Log.e("jiajia","新建 " + mCurrentDirect)
                     mBusDBManager?.insertListenStation(mDirectId, et_line.text.toString(), mCurrentStation, mCurrentDirect, mStationId)
                     activity?.finish()
                 }
