@@ -79,6 +79,7 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
             mStationLoopItems.add(it.Name)
         }
         station_loop.setItems(mStationLoopItems)
+        station_loop.setCurrentPosition(0)
         mCurrentStation = mStationLoopItems[0]
         tv_insert_station.text = "监听：${mStationLoopItems[0]}"
         mStationId = StringUtils.getStationId(mStationLoopItems[0], mStations)
@@ -92,6 +93,7 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
             mDirectLoopItems.add(it.FromStation + "-" + it.ToStation)
         }
         direct_loop.setItems(mDirectLoopItems)
+        direct_loop.setCurrentPosition(0)
         mDirectId = StringUtils.getLineId(mDirectLoopItems[0], mDirects)
         tv_insert_direct.text = "方向：${mDirectLoopItems[0]}"
         mCurrentDirect = mDirectLoopItems[0]
@@ -100,15 +102,15 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
     override fun onClick(v: View?) {
         when(v){
             btn_next -> {
-                if (et_line.visibility == View.VISIBLE) {
+                if (direct_loop.visibility == View.GONE && station_loop.visibility == View.GONE) {
                     if (et_line.text.isEmpty()) {
                         Toast.makeText(context, "线路请勿为空", Toast.LENGTH_LONG).show()
                     } else {
-                        et_line.visibility = View.GONE
                         mBusDatdManager?.requestBusDirect(et_line.text.toString())
-                        tv_insert_key.text = "线路：${et_line.text}"
                         tv_insert_direct.visibility = View.VISIBLE
                         btn_pre.visibility = View.VISIBLE
+                        et_line.isFocusable = false
+                        et_line.isFocusableInTouchMode = false
                     }
                 } else if (direct_loop.visibility == View.VISIBLE) {
                     if (mDirectLoopItems.size == 0) {
@@ -135,6 +137,10 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
                 } else if (direct_loop.visibility == View.VISIBLE) {
                     direct_loop.visibility = View.GONE
                     tv_insert_direct.text = "方向："
+                    et_line.setText("")
+                    et_line.isFocusable = true
+                    et_line.isFocusableInTouchMode = true
+                    et_line.requestFocus()
                     tv_insert_direct.visibility = View.GONE
                     btn_pre.visibility = View.GONE
                 }
