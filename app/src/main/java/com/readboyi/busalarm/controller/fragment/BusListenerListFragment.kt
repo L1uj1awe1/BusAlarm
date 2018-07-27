@@ -46,7 +46,7 @@ class BusListenerListFragment : Fragment() {
     private fun initRecyclerView () {
         mAdapter = BusListenerAdapter()
         list_bus_listener.run {
-            isLongPressDragEnabled = true
+            isItemViewSwipeEnabled = true
             setOnItemMoveListener(object : OnItemMoveListener{
                 override fun onItemMove(srcHolder: RecyclerView.ViewHolder?, targetHolder: RecyclerView.ViewHolder?): Boolean {
                     return false

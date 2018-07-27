@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.SeekBar
+import android.widget.Switch
 import android.widget.TextView
+import com.readboyi.busalarm.BusApp
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.data.bean.BusListenerBean
 import com.readboyi.busalarm.data.database.BusDBManager
@@ -22,26 +24,20 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
     var list: ArrayList<BusListenerBean> = arrayListOf()
 
     override fun onBindViewHolder(holder: RedPacketHolder, position: Int) {
+
         val bean = list[position]
+
         holder.tvBusKey.text = bean.key
         holder.tvFromStation.text = bean.fromStation
         holder.tvStation.text = bean.station
 
-//        holder.itemView.run {
-//            setOnClickListener {
-//                list = mBusDBManager?.updateListenLine(bean.id, bean.station, bean.status) ?: arrayListOf()
-//                notifyDataSetChanged()
-//            }
-//            if (bean.status == 0) {
-//                holder.rlView.visibility = View.VISIBLE
-//                holder.seekBar.progress = 0
-//            } else {
-//                holder.rlView.visibility = View.GONE
-//            }
-//        }
-
-        holder.seekBar.setOnTouchListener{_, _ -> true}
-
+        holder.listen_switch.run {
+            isChecked = bean.status == 1
+            setOnCheckedChangeListener { _, _ ->
+                list = mBusDBManager?.updateListenLine(bean.id, bean.station, bean.status) ?: arrayListOf()
+                BusApp.INSTANCE.service?.updateListens()
+            }
+        }
     }
 
     /**
@@ -66,7 +62,6 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
         var tvBusKey: TextView = view.tv_bus_key
         var tvFromStation: TextView = view.tv_from_station
         var tvStation: TextView = view.tv_station
-        var rlView: RelativeLayout = view.rl_view
-        var seekBar: SeekBar = view.seek_bar
+        var listen_switch: Switch = view.listen_switch
     }
 }
