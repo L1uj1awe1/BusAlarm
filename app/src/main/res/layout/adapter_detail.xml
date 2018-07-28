@@ -9,7 +9,7 @@
         android:id="@+id/top_connect"
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:background="@drawable/connect_black"
+        android:background="@drawable/connect_blue"
         android:layout_centerHorizontal="true"/>
 
     <RelativeLayout
@@ -24,18 +24,18 @@
             android:layout_marginEnd="10dp"
             android:id="@+id/tv_station"
             android:textColor="@color/text"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:gravity="center"
             />
         <TextView
             android:id="@+id/tv_index"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:textColor="@color/text"
             android:textSize="14sp"
             android:gravity="center"
             android:layout_centerInParent="true"
-            android:background="@drawable/circle_black"
+            android:background="@drawable/circle_blue"
             />
         <TextView
             android:layout_toEndOf="@+id/tv_index"
@@ -43,10 +43,11 @@
             android:layout_height="match_parent"
             android:layout_marginStart="10dp"
             android:id="@+id/tv_bus_number"
-            android:textColor="@color/busKey"
-            android:textSize="14sp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"
+            android:textSize="16sp"
             android:gravity="center"
-            android:drawableStart="@drawable/bus"
+            android:drawableStart="@drawable/bus_2"
             android:visibility="gone"
             />
     </RelativeLayout>
@@ -56,7 +57,7 @@
         android:id="@+id/bottom_connect"
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:background="@drawable/connect_black"
+        android:background="@drawable/connect_blue"
         android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
