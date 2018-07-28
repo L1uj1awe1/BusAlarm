@@ -2,6 +2,8 @@ package com.readboyi.busalarm.controller.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -28,6 +30,7 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     private var currentBusOnLine: Int = 0
     private var mCurrentDirect: BusInfoBean? = null
     private var currentBusList: ArrayList<BusStatusListBean> = arrayListOf()
+    private val mHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,10 +108,6 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
         val title = "${mKey}路(${currentBusOnLine}辆正在运行)"
         bus_action_bar.updateActionBarTitleText(title)
         currentBusList = bean.data
-        mAdapter?.setBusStatus(bean.data)
-        Log.e("jiajia","----------onBusStatus-")
-        bean.data.forEach {
-            Log.e("jiajia", it.BusNumber) }
     }
 
     override fun onClickBarMenu() {}
