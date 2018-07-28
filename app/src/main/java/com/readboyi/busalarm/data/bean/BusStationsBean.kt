@@ -16,3 +16,13 @@ data class BusStationsListBean (
         val Lng: String,
         val Name: String
 )
+
+data class BusStationsListBean2 (
+        val Description: String,
+        val Id: String,
+        val Lat: String,
+        val Lng: String,
+        val Name: String,
+        val haveCar: Boolean,
+        val busNumber: String
+)

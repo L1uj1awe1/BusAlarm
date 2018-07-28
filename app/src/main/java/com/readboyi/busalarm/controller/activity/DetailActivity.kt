@@ -17,6 +17,7 @@ import com.readboyi.busalarm.wedget.BusActionBar
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.view_action_bar.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, BusDateManager.RequestBusListener, BusHttpManager.BusHttpRequestListener {
     private var timer = Timer()
@@ -30,7 +31,7 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     private var currentBusOnLine: Int = 0
     private var mCurrentDirect: BusInfoBean? = null
     private var currentBusList: ArrayList<BusStatusListBean> = arrayListOf()
-    private val mHandler = Handler(Looper.getMainLooper())
+    private var mStation: ArrayList<BusStationsListBean> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,7 +96,12 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     }
 
     override fun onRequestBusStation(station: ArrayList<BusStationsListBean>) {
-        (mAdapter as BusDetailListAdapter).list = station
+        mStation = station
+        val list = ArrayList<BusStationsListBean2>()
+        station.forEach {
+            list.add(BusStationsListBean2(it.Description, it.Id, it.Lat, it.Lng, it.Name, false, ""))
+        }
+        (mAdapter as BusDetailListAdapter).list = list
         mAdapter?.notifyDataSetChanged()
         list_bus_detail.startLayoutAnimation()
     }
@@ -108,6 +114,23 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
         val title = "${mKey}路(${currentBusOnLine}辆正在运行)"
         bus_action_bar.updateActionBarTitleText(title)
         currentBusList = bean.data
+
+        val list = ArrayList<BusStationsListBean2>()
+        mStation.forEach {
+            val s = it
+            var inserted = false
+            bean.data.forEach {
+                if (s.Name == it.CurrentStation) {
+                    list.add(BusStationsListBean2(s.Description, s.Id, s.Lat, s.Lng, s.Name, true, it.BusNumber))
+                    inserted = true
+                }
+            }
+            if (!inserted) {
+                list.add(BusStationsListBean2(s.Description, s.Id, s.Lat, s.Lng, s.Name, false, ""))
+            }
+        }
+        (mAdapter as BusDetailListAdapter).list = list
+        mAdapter?.notifyDataSetChanged()
     }
 
     override fun onClickBarMenu() {}
@@ -119,6 +142,7 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     override fun onDestroy() {
         super.onDestroy()
         mBusDateManager?.onDestroy()
+        mBusHttpManager?.onDestroy()
         timer.cancel()
     }
 

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.readboyi.busalarm.R
-import com.readboyi.busalarm.data.bean.BusStationsListBean
+import com.readboyi.busalarm.data.bean.BusStationsListBean2
 import kotlinx.android.synthetic.main.adapter_detail.view.*
 
 /**
@@ -14,12 +14,18 @@ import kotlinx.android.synthetic.main.adapter_detail.view.*
  */
 class BusDetailListAdapter : RecyclerView.Adapter<BusDetailListAdapter.DetailHolder>() {
 
-    var list: ArrayList<BusStationsListBean> = arrayListOf()
+    var list: ArrayList<BusStationsListBean2> = arrayListOf()
 
     override fun onBindViewHolder(holder: DetailHolder, position: Int) {
         val bean = list[position]
         holder.tv_station.text = bean.Name
         holder.tv_index.text = position.toString()
+        if (bean.haveCar) {
+            holder.tv_bus_number.text = bean.busNumber
+            holder.tv_bus_number.visibility = View.VISIBLE
+        } else {
+            holder.tv_bus_number.visibility = View.GONE
+        }
     }
 
     override fun getItemCount(): Int {
