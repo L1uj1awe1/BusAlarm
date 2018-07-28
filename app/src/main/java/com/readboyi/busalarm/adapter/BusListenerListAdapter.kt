@@ -1,5 +1,7 @@
 package com.readboyi.busalarm.adapter
 
+import android.content.Context
+import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.readboyi.busalarm.BusApp
 import com.readboyi.busalarm.R
+import com.readboyi.busalarm.controller.activity.DetailActivity
 import com.readboyi.busalarm.data.bean.BusListenerBean
 import com.readboyi.busalarm.data.database.BusDBManager
 import kotlinx.android.synthetic.main.adapter_bus_listener.view.*
@@ -15,7 +18,7 @@ import kotlinx.android.synthetic.main.adapter_bus_listener.view.*
 /**
  * Created by liujiawei on 18-6-28.
  */
-class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHolder>() {
+class BusListenerAdapter(val context: Context?) : RecyclerView.Adapter<BusListenerAdapter.RedPacketHolder>() {
 
     var mBusDBManager: BusDBManager? = null
     var list: ArrayList<BusListenerBean> = arrayListOf()
@@ -28,7 +31,10 @@ class BusListenerAdapter : RecyclerView.Adapter<BusListenerAdapter.RedPacketHold
         holder.tvStation.text = bean.station
 
         holder.itemView.setOnClickListener {
-            Log.e("jiajia", bean.station)
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra("key", bean.key)
+            intent.putExtra("station", bean.station)
+            context?.startActivity(intent)
         }
 
         holder.listen_switch.run {

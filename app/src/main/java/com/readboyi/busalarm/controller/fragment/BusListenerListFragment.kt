@@ -45,7 +45,7 @@ class BusListenerListFragment : Fragment() {
      * 初始化列表
      */
     private fun initRecyclerView () {
-        mAdapter = BusListenerAdapter()
+        mAdapter = BusListenerAdapter(context)
         list_bus_listener.run {
             isItemViewSwipeEnabled = true
             setOnItemMoveListener(object : OnItemMoveListener{

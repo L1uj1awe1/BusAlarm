@@ -15,4 +15,13 @@
 
     </FrameLayout>
 
+    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+        android:id="@+id/list_bus_detail"
+        android:layout_below="@+id/view_bus_action_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        android:layoutAnimation="@anim/list_layout_anim"/>
+
 </RelativeLayout>
