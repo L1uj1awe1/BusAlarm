@@ -44,6 +44,13 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
         mBusDateManager?.listener = this
         bus_action_bar.updateActionBarTitle(Constants.ACTION_BAR_ADD_DETAIL)
         bus_action_bar.listener = this
+        btn_change_direct.setOnClickListener {
+            directIndex = if (directIndex == 1) 0 else 1
+            mCurrentDirect = mDirect[directIndex]
+            tv_from_station.text = mCurrentDirect?.FromStation
+            tv_to_station.text = mCurrentDirect?.ToStation
+            mBusDateManager?.requestBusStation(mCurrentDirect!!.Id)
+        }
         initRecyclerView()
     }
 
@@ -60,11 +67,13 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
         mBusDateManager?.requestBusDirect(mKey)
     }
 
+    /**
+     * 获取线路状态
+     */
     private fun getBusstatus() {
         Thread(Runnable {
             timer.schedule(object : TimerTask() {
                 override fun run() {
-                    Log.e("jiajia","mCurrentDirect!!.Id = " + mCurrentDirect!!.Id +"    " + mCurrentDirect!!.FromStation)
                     mBusHttpManager?.requestBusStatus(mCurrentDirect!!.Id, mKey, mCurrentDirect!!.FromStation, mListenStatioo)
                 }
             }, Constants.REQUEST_STATUS_DELAY, Constants.REQUEST_STATUS_DELAY)
@@ -74,6 +83,8 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     override fun onRequestBusDirect(direct: ArrayList<BusInfoBean>) {
         mDirect = direct
         mCurrentDirect = mDirect[directIndex]
+        tv_from_station.text = mCurrentDirect?.FromStation
+        tv_to_station.text = mCurrentDirect?.ToStation
         mBusDateManager?.requestBusStation(mCurrentDirect!!.Id)
         getBusstatus()
     }
