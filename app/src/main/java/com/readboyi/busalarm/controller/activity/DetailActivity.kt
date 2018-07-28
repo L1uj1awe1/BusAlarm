@@ -47,6 +47,7 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
         btn_change_direct.setOnClickListener {
             directIndex = if (directIndex == 1) 0 else 1
             mCurrentDirect = mDirect[directIndex]
+            tv_detail.text = "首班：${mCurrentDirect?.BeginTime}，末班：${mCurrentDirect?.EndTime}，票价：${mCurrentDirect?.Price}"
             tv_from_station.text = mCurrentDirect?.FromStation
             tv_to_station.text = mCurrentDirect?.ToStation
             mBusDateManager?.requestBusStation(mCurrentDirect!!.Id)
@@ -83,6 +84,7 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     override fun onRequestBusDirect(direct: ArrayList<BusInfoBean>) {
         mDirect = direct
         mCurrentDirect = mDirect[directIndex]
+        tv_detail.text = "首班：${mCurrentDirect?.BeginTime}，末班：${mCurrentDirect?.EndTime}，票价：${mCurrentDirect?.Price}"
         tv_from_station.text = mCurrentDirect?.FromStation
         tv_to_station.text = mCurrentDirect?.ToStation
         mBusDateManager?.requestBusStation(mCurrentDirect!!.Id)
