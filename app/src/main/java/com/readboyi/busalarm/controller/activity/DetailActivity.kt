@@ -105,6 +105,10 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
         val title = "${mKey}路(${currentBusOnLine}辆正在运行)"
         bus_action_bar.updateActionBarTitleText(title)
         currentBusList = bean.data
+        mAdapter?.setBusStatus(bean.data)
+        Log.e("jiajia","----------onBusStatus-")
+        bean.data.forEach {
+            Log.e("jiajia", it.BusNumber) }
     }
 
     override fun onClickBarMenu() {}
