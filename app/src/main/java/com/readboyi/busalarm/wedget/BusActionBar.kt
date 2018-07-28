@@ -1,6 +1,8 @@
 package com.readboyi.busalarm.wedget
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.view.View
 import android.widget.RelativeLayout
@@ -17,7 +19,7 @@ class BusActionBar(context: Context?, attrs: AttributeSet?) : RelativeLayout(con
         fun onClickBarBack()
         fun onClickBarAdd()
     }
-
+    private val mHandler = Handler(Looper.getMainLooper())
     var listener: BusActionBarListener? = null
 
     override fun onFinishInflate() {
@@ -29,6 +31,12 @@ class BusActionBar(context: Context?, attrs: AttributeSet?) : RelativeLayout(con
         btn_bar_menu.setOnClickListener(this)
         btn_bar_add.setOnClickListener(this)
         btn_bar_back.setOnClickListener(this)
+    }
+
+    fun updateActionBarTitleText(title: String = "线路详情"){
+        mHandler.post{
+            tv_bar_title.text = title
+        }
     }
 
     fun updateActionBarTitle(type: Int = 1) {

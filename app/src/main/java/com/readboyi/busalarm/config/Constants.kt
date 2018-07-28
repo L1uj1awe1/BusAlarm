@@ -11,4 +11,5 @@ object Constants {
     val ACTION_BAR_ADD_DETAIL = 3
 
     val REQUEST_LISTEN_DELAY: Long = 20000
+    val REQUEST_STATUS_DELAY: Long = 3000
 }

@@ -4,24 +4,30 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.adapter.BusDetailListAdapter
 import com.readboyi.busalarm.config.Constants
 import com.readboyi.busalarm.data.BusDateManager
-import com.readboyi.busalarm.data.bean.BusInfoBean
-import com.readboyi.busalarm.data.bean.BusStationsListBean
+import com.readboyi.busalarm.data.bean.*
+import com.readboyi.busalarm.data.http.BusHttpManager
 import com.readboyi.busalarm.wedget.BusActionBar
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.view_action_bar.*
+import java.util.*
 
-class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, BusDateManager.RequestBusListener {
-
+class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, BusDateManager.RequestBusListener, BusHttpManager.BusHttpRequestListener {
+    private var timer = Timer()
     private var mAdapter: BusDetailListAdapter? = null
     private var mBusDateManager: BusDateManager? = null
-    private var key: String = ""
+    private var mBusHttpManager: BusHttpManager? = null
+    private var mKey: String = ""
     private var mListenStatioo: String = ""
     private var mDirect: ArrayList<BusInfoBean> = arrayListOf()
     private var directIndex: Int = 0
+    private var currentBusOnLine: Int = 0
+    private var mCurrentDirect: BusInfoBean? = null
+    private var currentBusList: ArrayList<BusStatusListBean> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +36,11 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     }
 
     private fun init() {
-        key = intent.getStringExtra("key")
+        mKey = intent.getStringExtra("key")
         mListenStatioo = intent.getStringExtra("station")
         mBusDateManager = BusDateManager(this)
+        mBusHttpManager = BusHttpManager(this)
+        mBusHttpManager?.listener = this
         mBusDateManager?.listener = this
         bus_action_bar.updateActionBarTitle(Constants.ACTION_BAR_ADD_DETAIL)
         bus_action_bar.listener = this
@@ -49,17 +57,41 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
             itemAnimator = DefaultItemAnimator()
             adapter = mAdapter
         }
-        mBusDateManager?.requestBusDirect(key)
+        mBusDateManager?.requestBusDirect(mKey)
+    }
+
+    private fun getBusstatus() {
+        Thread(Runnable {
+            timer.schedule(object : TimerTask() {
+                override fun run() {
+                    Log.e("jiajia","mCurrentDirect!!.Id = " + mCurrentDirect!!.Id +"    " + mCurrentDirect!!.FromStation)
+                    mBusHttpManager?.requestBusStatus(mCurrentDirect!!.Id, mKey, mCurrentDirect!!.FromStation, mListenStatioo)
+                }
+            }, Constants.REQUEST_STATUS_DELAY, Constants.REQUEST_STATUS_DELAY)
+        }).start()
     }
 
     override fun onRequestBusDirect(direct: ArrayList<BusInfoBean>) {
         mDirect = direct
-        mBusDateManager?.requestBusStation(mDirect[directIndex].Id)
+        mCurrentDirect = mDirect[directIndex]
+        mBusDateManager?.requestBusStation(mCurrentDirect!!.Id)
+        getBusstatus()
     }
+
     override fun onRequestBusStation(station: ArrayList<BusStationsListBean>) {
         (mAdapter as BusDetailListAdapter).list = station
         mAdapter?.notifyDataSetChanged()
         list_bus_detail.startLayoutAnimation()
+    }
+
+
+    override fun onBusDirection(bean: BusDirectBean) {}
+    override fun onBusStations(bean: BusStationsBean) {}
+    override fun onBusStatus(id: String, key: String, bean: BusStatusBean, station: String) {
+        currentBusOnLine = bean.data.size
+        val title = "${mKey}路(${currentBusOnLine}辆正在运行)"
+        bus_action_bar.updateActionBarTitleText(title)
+        currentBusList = bean.data
     }
 
     override fun onClickBarMenu() {}
@@ -71,6 +103,7 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     override fun onDestroy() {
         super.onDestroy()
         mBusDateManager?.onDestroy()
+        timer.cancel()
     }
 
 }
