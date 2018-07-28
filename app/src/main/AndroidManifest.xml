@@ -39,7 +39,8 @@
             android:enabled="true"
             android:label="BusAlarmService" />
 
-        <activity android:name=".controller.activity.TipActivity"
+        <activity
+            android:name=".controller.activity.TipActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.TIP" />
@@ -47,6 +48,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".controller.activity.DetailActivity"></activity>
     </application>
 
 </manifest>

@@ -45,6 +45,12 @@ class BusActionBar(context: Context?, attrs: AttributeSet?) : RelativeLayout(con
                 btn_bar_add.visibility = View.GONE
                 btn_bar_back.visibility = View.VISIBLE
             }
+            Constants.ACTION_BAR_ADD_DETAIL -> {
+                tv_bar_title.text = "线路详情"
+                btn_bar_menu.visibility = View.GONE
+                btn_bar_add.visibility = View.GONE
+                btn_bar_back.visibility = View.VISIBLE
+            }
         }
     }
 
