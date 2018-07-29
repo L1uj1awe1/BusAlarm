@@ -14,18 +14,25 @@ import kotlinx.android.synthetic.main.adapter_detail.view.*
  */
 class BusDetailListAdapter : RecyclerView.Adapter<BusDetailListAdapter.DetailHolder>() {
 
-    var list: ArrayList<BusStationsListBean2> = arrayListOf()
+    private var list: ArrayList<BusStationsListBean2> = arrayListOf()
 
     override fun onBindViewHolder(holder: DetailHolder, position: Int) {
         val bean = list[position]
         holder.tv_station.text = bean.Name
-        holder.tv_index.text = position.toString()
+        holder.tv_index.text = (position + 1).toString()
         if (bean.haveCar) {
             holder.tv_bus_number.text = bean.busNumber
             holder.tv_bus_number.visibility = View.VISIBLE
         } else {
             holder.tv_bus_number.visibility = View.GONE
         }
+    }
+
+    fun update(list: ArrayList<BusStationsListBean2>) {
+        this.list.clear()
+        notifyDataSetChanged()
+        this.list = list
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {

@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.adapter.BusDetailListAdapter
 import com.readboyi.busalarm.config.Constants
@@ -28,10 +27,9 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     private var mListenStatioo: String = ""
     private var mDirect: ArrayList<BusInfoBean> = arrayListOf()
     private var directIndex: Int = 0
-    private var currentBusOnLine: Int = 0
     private var mCurrentDirect: BusInfoBean? = null
-    private var currentBusList: ArrayList<BusStatusListBean> = arrayListOf()
     private var mStation: ArrayList<BusStationsListBean> = arrayListOf()
+    private val mHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +74,9 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
      * 获取线路状态
      */
     private fun getBusstatus() {
+        timer.cancel()
+        timer = Timer()
+        mBusHttpManager?.requestBusStatus(mCurrentDirect!!.Id, mKey, mCurrentDirect!!.FromStation, mListenStatioo)
         Thread(Runnable {
             timer.schedule(object : TimerTask() {
                 override fun run() {
@@ -92,35 +93,25 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
         tv_from_station.text = mCurrentDirect?.FromStation
         tv_to_station.text = mCurrentDirect?.ToStation
         mBusDateManager?.requestBusStation(mCurrentDirect!!.Id)
-        getBusstatus()
     }
 
     override fun onRequestBusStation(station: ArrayList<BusStationsListBean>) {
         mStation = station
-        val list = ArrayList<BusStationsListBean2>()
-        station.forEach {
-            list.add(BusStationsListBean2(it.Description, it.Id, it.Lat, it.Lng, it.Name, false, ""))
-        }
-        (mAdapter as BusDetailListAdapter).list = list
-        mAdapter?.notifyDataSetChanged()
-        list_bus_detail.startLayoutAnimation()
+        getBusstatus()
     }
 
 
     override fun onBusDirection(bean: BusDirectBean) {}
     override fun onBusStations(bean: BusStationsBean) {}
     override fun onBusStatus(id: String, key: String, bean: BusStatusBean, station: String) {
-        currentBusOnLine = bean.data.size
-        val title = "${mKey}路(${currentBusOnLine}辆正在运行)"
-        bus_action_bar.updateActionBarTitleText(title)
-        currentBusList = bean.data
-
         val list = ArrayList<BusStationsListBean2>()
+        val busNumbers = ArrayList<String>()
         mStation.forEach {
             val s = it
             var inserted = false
             bean.data.forEach {
-                if (s.Name == it.CurrentStation) {
+                if (s.Name == it.CurrentStation && !checkBusNumber(busNumbers, it.BusNumber)) {
+                    busNumbers.add(it.BusNumber)
                     list.add(BusStationsListBean2(s.Description, s.Id, s.Lat, s.Lng, s.Name, true, it.BusNumber))
                     inserted = true
                 }
@@ -129,8 +120,19 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
                 list.add(BusStationsListBean2(s.Description, s.Id, s.Lat, s.Lng, s.Name, false, ""))
             }
         }
-        (mAdapter as BusDetailListAdapter).list = list
-        mAdapter?.notifyDataSetChanged()
+        mHandler.post {
+            bus_action_bar.updateActionBarTitleText("${mKey}路(${bean.data.size}辆正在运行)")
+            mAdapter?.update(list)
+        }
+    }
+
+    fun checkBusNumber(list: ArrayList<String>, busNumber: String): Boolean {
+        list.forEach {
+          if (it == busNumber) {
+              return true
+          }
+        }
+        return false
     }
 
     override fun onClickBarMenu() {}
