@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
+import com.jude.swipbackhelper.SwipeBackHelper
 import com.readboyi.busalarm.R
 import com.readboyi.busalarm.adapter.BusDetailListAdapter
 import com.readboyi.busalarm.config.Constants
@@ -34,7 +35,13 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        SwipeBackHelper.onCreate(this)
         init()
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        SwipeBackHelper.onPostCreate(this)
     }
 
     private fun init() {
@@ -146,6 +153,7 @@ class DetailActivity : AppCompatActivity(), BusActionBar.BusActionBarListener, B
         mBusDateManager?.onDestroy()
         mBusHttpManager?.onDestroy()
         timer.cancel()
+        SwipeBackHelper.onDestroy(this)
     }
 
 }
