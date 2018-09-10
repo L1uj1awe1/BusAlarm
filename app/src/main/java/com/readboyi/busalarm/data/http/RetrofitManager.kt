@@ -29,13 +29,15 @@ class RetrofitManager {
         val originalRequest = chain.request()
 
         chain.proceed(originalRequest.newBuilder().apply {
-            header("AppType", "Android")
-            header("Content-Type", "application/json")
-            header("Accept", "application/json")
-            header("randKey", "${System.currentTimeMillis()}")
-            header("Device", Build.MODEL)
-            header("Version-Name", BuildConfig.VERSION_NAME)
-            header("Version-Code",BuildConfig.VERSION_CODE.toString())
+            header("Host", "www.zhbuswx.com")
+            header("Accept", "application/json, text/javascript, */*; q=0.01")
+            header("X-Requested-With", "XMLHttpRequest")
+            header("User-Agent", "Mozilla/5.0 (Linux; Android 7.0; MI 5s Plus Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/57.0.2987.132 MQQBrowser/6.2 TBS/044207 Mobile Safari/537.36 MicroMessenger/6.7.2.1340(0x2607023A) NetType/WIFI Language/zh_CN")
+            header("Accept-Language", "zh-CN,en-US;q=0.8")
+            header("Referer", "http://www.zhbuswx.com/busline/BusQuery.html?v=2.01")
+            header("Accept-Encoding", "gzip, deflate")
+            header("Cookie", "openid3=oiFDwsus063Z50k7Mxk4UpI79KUA")
+
             method(originalRequest.method(), originalRequest.body())
         }.build())
     }

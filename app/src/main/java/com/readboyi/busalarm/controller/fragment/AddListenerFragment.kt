@@ -100,25 +100,6 @@ class AddListenerFragment : Fragment(), View.OnClickListener, BusDateManager.Req
     }
 
     override fun onClick(v: View?) {
-//        mBusDBManager?.insertListenStation("direct_id_b9_1", "b9", "金鼎总站", "金鼎总站-前山总站", "station_id_b9_1")
-//        mBusDBManager?.insertListenStation("direct_id_b9_1", "b9", "中珠桥", "金鼎总站-前山总站", "station_id_b9_2")
-//        mBusDBManager?.insertListenStation("direct_id_b9_2", "b9", "前山总站", "前山总站-金鼎总站", "station_id_b9_3")
-//        mBusDBManager?.insertListenStation("direct_id_b9_2", "b9", "漾湖明居", "前山总站-金鼎总站", "station_id_b9_4")
-
-//        mBusDBManager?.insertListenStation("direct_id_3_1", "3", "金鼎工业园", "金鼎工业园-九州港", "station_id_3_1")
-//        mBusDBManager?.insertListenStation("direct_id_3_1", "3", "宏利药业", "金鼎工业园-九州港", "station_id_3_2")
-//        mBusDBManager?.insertListenStation("direct_id_3_2", "3", "九州港", "九州港-金鼎工业园", "station_id_3_3")
-//        mBusDBManager?.insertListenStation("direct_id_3_2", "3", "石花东", "九州港-金鼎工业园", "station_id_3_4")
-//
-//        mBusDBManager?.insertListenStation("direct_id_3a_1", "3a", "城轨珠海北站", "城轨珠海北站-九州港", "station_id_3a_1")
-//        mBusDBManager?.insertListenStation("direct_id_3a_1", "3a", "惠景慧园", "城轨珠海北站-九州港", "station_id_3a_2")
-//        mBusDBManager?.insertListenStation("direct_id_3a_2", "3a", "九州港", "九州港-城轨珠海北站", "station_id_3a_3")
-//        mBusDBManager?.insertListenStation("direct_id_3a_2", "3a", "石花东", "九州港-城轨珠海北站", "station_id_3a_4")
-//
-//        mBusDBManager?.insertListenStation("direct_id_k2_1", "k2", "前山总站", "前山总站-金鼎", "station_id_k2_1")
-//        mBusDBManager?.insertListenStation("direct_id_k2_1", "k2", "前山", "前山总站-金鼎", "station_id_k2_2")
-//        mBusDBManager?.insertListenStation("direct_id_k2_2", "k2", "金鼎", "金鼎-前山总站", "station_id_k2_3")
-//        mBusDBManager?.insertListenStation("direct_id_k2_2", "k2", "金鼎市场", "金鼎-前山总站", "station_id_k2_4")
 
         when(v){
             btn_next -> {

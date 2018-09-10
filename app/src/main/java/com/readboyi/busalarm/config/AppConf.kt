@@ -9,11 +9,12 @@ object AppConf {
     val baseUrl: String
 
     init {
-//        if (BuildConfig.DEBUG) {
-//            baseUrl = "http://test.zhbuswx.com/"
-//        } else {
+        if (BuildConfig.DEBUG) {
+//            baseUrl = "http://test.zhbuswx.com/" // 暂时不可用
             baseUrl = "http://www.zhbuswx.com/"
-//        }
+        } else {
+            baseUrl = "http://www.zhbuswx.com/"
+        }
     }
 
 }
